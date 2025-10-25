@@ -1,5 +1,11 @@
 "use client";
+
 import { useGetData } from "@/hooks/useFetch";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { FaEdit, FaTrash } from "react-icons/fa";
+import { DeleteComp } from "../deleteComp";
+import { HeroEditDialogForm } from "./form/HeroEditDialogForm";
 
 export default function HeroData() {
   const { data, error } = useGetData(
@@ -10,40 +16,53 @@ export default function HeroData() {
   if (error) return <p className="text-red-500">Error: {error.message}</p>;
 
   return (
-    <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold text-white mb-4">Hero Section Data</h1>
+    <div className="p-6 space-y-6">
+      <h1 className="text-2xl font-bold text-white">Hero Section Data</h1>
 
       {data && data.length > 0 ? (
-        data.map((hero: any) => (
-          <div
-            key={hero.id}
-            className="p-4 bg-zinc-800 rounded-2xl shadow-md flex flex-col gap-2"
-          >
-            <h2 className="text-xl font-semibold text-white">
-              {hero.full_name}
-            </h2>
-            <p className="text-gray-300">{hero.summary}</p>
-
-            {hero.image_url && (
-              <img
-                src={hero.image_url}
-                alt={hero.full_name}
-                className="w-40 h-40 object-cover rounded-lg mt-2"
-              />
-            )}
-
-            <a
-              href={hero.cta}
-              className="mt-2 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition"
+        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {data.map((hero: any) => (
+            <Card
+              key={hero.id}
+              className="bg-zinc-800 border-zinc-700 text-white rounded-2xl shadow-lg hover:shadow-xl transition"
             >
-              {hero.cta ? "Visit CTA" : "No CTA link"}
-            </a>
+              <CardHeader className="flex flex-row items-center justify-between">
+                <CardTitle className="text-lg font-semibold truncate">
+                  {hero.full_name}
+                </CardTitle>
 
-            <span className="text-gray-400 text-sm">
-              Created at: {new Date(hero.created_at).toLocaleString()}
-            </span>
-          </div>
-        ))
+                <div className="flex gap-2">
+                  <HeroEditDialogForm id={hero.id} />
+                  <DeleteComp
+                    id={hero.id}
+                    endpoint="/api/v1/admin/hero-section/delete"
+                    queryKey="hero-section"
+                  />
+                </div>
+              </CardHeader>
+
+              <CardContent className="space-y-3">
+                <p className="text-gray-300 text-sm">{hero.summary}</p>
+
+                {hero.image_url && (
+                  <img
+                    src={hero.image_url}
+                    alt={hero.full_name}
+                    className="w-full h-40 object-cover rounded-xl mt-2"
+                  />
+                )}
+
+                <div className="pt-3">
+                  <p>{hero.cta}</p>
+                </div>
+
+                <span className="block text-gray-500 text-xs">
+                  Created at: {new Date(hero.created_at).toLocaleString()}
+                </span>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       ) : (
         <p className="text-gray-400">No hero data found.</p>
       )}

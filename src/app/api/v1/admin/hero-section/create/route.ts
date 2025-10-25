@@ -33,6 +33,7 @@ export async function POST(request: Request) {
 
     return postResult;
   } catch (error: unknown) {
+    console.error("Backend Error:", error);
     if (error instanceof Error) {
       return errorResponse({
         success: false,

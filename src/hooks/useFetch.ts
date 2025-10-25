@@ -25,7 +25,7 @@ export function useGetData<T>(
         },
       });
       const data = await response.json();
-      console.log(data.data);
+     
       return data.data;
     },
   });
@@ -49,7 +49,7 @@ export function useGetSingleData<T>(
         },
       });
       const data = await response.json();
-      console.log(data.data);
+     
       return data.data;
     },
   });
@@ -59,28 +59,31 @@ export function useGetSingleData<T>(
  * Generic insert (POST) hook
  */
 export function usePostData<T>(
-  endpoint:string,
+  endpoint: string,
   queryKey: string
 ): UseMutationResult<T[], Error, T> {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: T) => {
-      const response = await fetch(`${endpoint}`, {
+    mutationFn: async (data: any) => {
+      // Detect if it's FormData (for file upload)
+      const isFormData = data instanceof FormData;
+
+      const response = await fetch(endpoint, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
+        headers: isFormData ? undefined : { "Content-Type": "application/json" },
+        body: isFormData ? data : JSON.stringify(data),
       });
 
       if (!response.ok) {
         const errorText = await response.text();
         throw new Error(errorText || "Failed to post data");
       }
+
       const result = await response.json();
       return result.data;
     },
+
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
     },
@@ -98,12 +101,11 @@ export function useUpdateData<T>(
 
   return useMutation({
     mutationFn: async ({ id, updates }) => {
+      const isFormData = updates instanceof FormData;
       const response = await fetch(`${endpoint}/${id}`, {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updates),
+        headers: isFormData ? undefined : { "Content-Type": "application/json" },
+        body: isFormData ? updates : JSON.stringify(updates),
       });
 
       if (!response.ok) {
@@ -130,7 +132,7 @@ export function useDeleteData<T>(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async () => {
+    mutationFn: async (id:string) => {
       const response = await fetch(`${endpoint}/${id}`, {
         method: "DELETE",
       });
