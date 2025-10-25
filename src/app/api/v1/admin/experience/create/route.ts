@@ -2,15 +2,9 @@ import { postHandler } from "@/lib/api/postHandler";
 import { normalizeDate } from "@/utils/normalizeDate";
 import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
+import type { ExperienceForm } from "@/types/experience";
 
-interface Experience {
-  company_name: string;
-  position: string;
-  start_date: string;
-  end_date?: string;
-  description?: string;
-  currently_working: boolean;
-}
+
 
 export async function POST(request: NextRequest) {
   try {
@@ -36,7 +30,7 @@ export async function POST(request: NextRequest) {
         ? currently_working === "true"
         : currently_working;
 
-    const data: Experience = {
+    const data: ExperienceForm = {
       company_name,
       position,
       start_date: normalizeDate(start_date)!,

@@ -1,13 +1,12 @@
-import { deleteImage } from "@/services/deleteImageService";
-import { errorResponse, successResponse } from "@/utils/response";
 import { supabase } from "@/utils/server";
-
+import { successResponse, errorResponse } from "@/utils/response";
+import { deleteImage } from "@/services/deleteImageService";
 
 interface DeleteHandlerProps {
-  id: string;
+  id: string | number;
   table: string;
-  bucket?: string; // optional — only needed if deleting an image
-  imageColumn?: string // optional — only needed if deleting an image
+  bucket?: string;
+  imageColumn?: string;
 }
 
 export async function deleteHandler({
@@ -25,10 +24,12 @@ export async function deleteHandler({
   }
 
   try {
-    // 1️⃣ Find the record first
+    // 1️⃣ Dynamically select columns
+    const selectColumns = imageColumn ? `id, ${imageColumn}` : "id";
+
     const { data: findData, error: findError } = await supabase
       .from(table)
-      .select(`id`)
+      .select(selectColumns)
       .eq("id", id)
       .single();
 
@@ -40,20 +41,14 @@ export async function deleteHandler({
       });
     }
 
-    // 2️⃣ Delete image if bucket and image exist
-    // 2️⃣ Delete image if bucket and image exist
-    let imageUrl: string 
-
     if (
       bucket &&
       imageColumn &&
-      findData &&
       (findData as Record<string, any>)[imageColumn]
     ) {
-      imageUrl = (findData as Record<string, any>)[imageColumn];
+      const imageUrl = (findData as Record<string, any>)[imageColumn] as string;
       try {
-        await deleteImage({filePath:imageUrl, bucket:bucket});
-        console.log("🗑️ Deleted image:", imageUrl);
+        await deleteImage({ filePath: imageUrl, bucket });
       } catch (imgError) {
         console.warn("⚠️ Image deletion failed:", imgError);
       }
@@ -64,6 +59,7 @@ export async function deleteHandler({
       .from(table)
       .delete()
       .eq("id", id);
+
     if (deleteError) throw new Error(deleteError.message);
 
     return successResponse({
@@ -73,12 +69,13 @@ export async function deleteHandler({
       data: { id },
     });
   } catch (error: unknown) {
-    if (error instanceof Error)
+    if (error instanceof Error) {
       return errorResponse({
         success: false,
         status: 500,
         message: error.message,
       });
+    }
 
     return errorResponse({
       success: false,

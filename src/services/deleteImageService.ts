@@ -1,3 +1,4 @@
+import { SUPABASE_URL } from "@/config/supabaseKey";
 import {supabase} from "@/utils/server";
 
 /**

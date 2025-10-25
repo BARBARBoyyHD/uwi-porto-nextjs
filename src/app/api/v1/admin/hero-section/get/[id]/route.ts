@@ -1,6 +1,4 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
-import { errorResponse, successResponse } from "@/utils/response";
-import supabase from "@/utils/supabaseClient";
 import { NextRequest } from "next/server";
 
 interface Params {

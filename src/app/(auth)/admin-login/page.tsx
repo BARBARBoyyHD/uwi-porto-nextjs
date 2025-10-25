@@ -2,7 +2,7 @@ import AuthSignIn from '@/components/auth/authSignInComponents'
 
 export default function LoginPage() {
   return (
-    <main>
+    <main className=''>
         <AuthSignIn/>
     </main>
   )

@@ -3,7 +3,7 @@ import { errorResponse } from "@/utils/response";
 
 export async function GET() {
   try {
-    return getHandler({
+    return await getHandler({
       table: "my_services",
       column: "id,title,description,price,category,created_at",
     });

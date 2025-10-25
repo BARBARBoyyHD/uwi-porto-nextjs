@@ -1,10 +1,17 @@
-export function normalizeDate(dateString: string): string | null {
+export function normalizeDate(dateString?: string): string | null {
   if (!dateString) return null;
-  const parts = dateString.split("-");
-  if (parts.length === 3) {
-    // Convert DD-MM-YYYY → YYYY-MM-DD
-    const [day, month, year] = parts;
+
+  // If already in YYYY-MM-DD format, return directly
+  if (/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+    return dateString;
+  }
+
+  // Convert from DD-MM-YYYY → YYYY-MM-DD
+  const match = dateString.match(/^(\d{2})-(\d{2})-(\d{4})$/);
+  if (match) {
+    const [, day, month, year] = match;
     return `${year}-${month}-${day}`;
   }
-  return dateString; // already in YYYY-MM-DD format
+
+  return null;
 }

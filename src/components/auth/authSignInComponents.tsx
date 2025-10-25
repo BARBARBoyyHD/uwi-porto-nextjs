@@ -1,44 +1,60 @@
-import { login } from '@/app/(auth)/admin-login/actions'
+"use client"
+
+import { login } from "@/app/(auth)/admin-login/actions"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 
 export default function AdminLoginPage() {
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
-      <form className="flex flex-col bg-white/10 backdrop-blur-md p-8 rounded-2xl shadow-xl w-[320px] border border-white/20">
-        <h1 className="text-2xl font-semibold text-white text-center mb-6">
-          Admin Login
-        </h1>
+    <div className="dark min-h-screen flex items-center justify-center  px-4">
+      <Card className="w-full max-w-sm border  ">
+        <CardHeader>
+          <CardTitle className="text-center text-2xl font-semibold ">
+            Admin Login
+          </CardTitle>
+        </CardHeader>
 
-        <label htmlFor="email" className="text-sm text-gray-300 mb-1">
-          Email
-        </label>
-        <input
-          id="email"
-          name="email"
-          type="email"
-          required
-          className="mb-4 px-3 py-2 rounded-lg bg-white/20 border border-gray-500 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your email"
-        />
+        <CardContent>
+          <form className="flex flex-col space-y-5" action={login}>
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="email" className="">
+                Email
+              </Label>
+              <Input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Enter your email"
+                required
+                className=""
+              />
+            </div>
 
-        <label htmlFor="password" className="text-sm text-gray-300 mb-1">
-          Password
-        </label>
-        <input
-          id="password"
-          name="password"
-          type="password"
-          required
-          className="mb-6 px-3 py-2 rounded-lg bg-white/20 border border-gray-500 text-white placeholder-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-400"
-          placeholder="Enter your password"
-        />
+            <div className="flex flex-col space-y-2">
+              <Label htmlFor="password" className="">
+                Password
+              </Label>
+              <Input
+                id="password"
+                name="password"
+                type="password"
+                placeholder="Enter your password"
+                required
+                className=""
+              />
+            </div>
 
-        <button
-          className="py-2 rounded-lg bg-blue-500 hover:bg-blue-600 transition text-white font-medium"
-          formAction={login}
-        >
-          Log in
-        </button>
-      </form>
+            <Button
+              type="submit"
+              className="w-full font-medium"
+            >
+              Log in
+            </Button>
+          </form>
+        </CardContent>
+      </Card>
     </div>
   )
 }

@@ -1,7 +1,6 @@
 import { errorResponse, successResponse } from "@/utils/response";
 import { supabase } from "@/utils/server";
 
-
 interface GetHandlerProps {
   table: string;
   column?: string;
@@ -45,27 +44,19 @@ export async function getHandler({ table, column }: GetHandlerProps) {
 
 export async function getSingleHandler({ table, column, id }: GetHandlerProps) {
   try {
-    const { data: findData, error: findError } = await supabase
+    const { data, error } = await supabase
       .from(table)
-      .select(`id`)
+      .select(column || "*")
       .eq("id", id)
       .single();
 
-    if (findError || !findData) {
+    if (error || !data) {
       return errorResponse({
         success: false,
         status: 404,
         message: "Data not found",
       });
     }
-
-    const { data, error } = await supabase
-      .from(table)
-      .select(`${column ? column : "*"}`)
-      .eq("id", id)
-      .single();
-
-    if (error) throw new Error(error.message);
 
     return successResponse({
       success: true,
