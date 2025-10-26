@@ -34,7 +34,7 @@ const sidebarItems: SidebarItemProps[] = [
   },
   {
     name: "My Service",
-    href: "/admin/my-service",
+    href: "/admin/my-services",
     icon: FiSettings,
   },
   {
@@ -59,7 +59,7 @@ const sidebarItems: SidebarItemProps[] = [
   },
   {
     name: "Certificates",
-    href: "/admin/certificates",
+    href: "/admin/certificate",
     icon: FiAward,
   },
 ];

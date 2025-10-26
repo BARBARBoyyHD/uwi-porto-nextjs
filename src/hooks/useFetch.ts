@@ -37,7 +37,8 @@ export function useGetData<T>(
 export function useGetSingleData<T>(
   id: string,
   endpoint: string,
-  queryKey: string
+  queryKey: string,
+  option?:{enabled:boolean}
 ): UseQueryResult<T, Error> {
   return useQuery({
     queryKey: [queryKey, id],
@@ -52,6 +53,7 @@ export function useGetSingleData<T>(
      
       return data.data;
     },
+    ...option,
   });
 }
 
@@ -126,7 +128,6 @@ export function useUpdateData<T>(
  */
 export function useDeleteData<T>(
   endpoint: string,
-  id: string,
   queryKey: string
 ): UseMutationResult<void, Error, string> {
   const queryClient = useQueryClient();
@@ -143,8 +144,9 @@ export function useDeleteData<T>(
       const result = await response.json();
       return result.data;
     },
-    onSuccess: () => {
+    onSuccess: (id) => {
       queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.removeQueries({ queryKey: [id] });
     },
   });
 }

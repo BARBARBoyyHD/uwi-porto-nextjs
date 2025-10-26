@@ -10,7 +10,7 @@ interface DeleteCompProps {
 }
 
 export function DeleteComp({ id, endpoint, queryKey }: DeleteCompProps) {
-  const { mutate } = useDeleteData(endpoint, id, queryKey);
+  const { mutate } = useDeleteData(endpoint, queryKey);
 
   return (
     <Button
