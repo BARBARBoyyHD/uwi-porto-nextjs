@@ -2,23 +2,11 @@
 import { useGetData } from "@/hooks/useFetch";
 import React from "react";
 import type { Certificate } from "@/types/certificates";
-// 1. Import the icons from 'react-icons'
 import { FaEdit, FaTrash } from "react-icons/fa";
-import Image from "next/image"; // Use next/image for better performance if possible
+import Image from "next/image";
 import { CertificateEditFormDialog } from "./form/CertificateEditForm";
-import { DeleteComp } from "../deleteComp";
+import { DeleteComp } from "../../deleteComp";
 import { Delete } from "lucide-react";
-
-// Assuming your Certificate type looks something like this:
-// type Certificate = {
-//   id: string; // Crucial for keys and actions
-//   cert_name: string;
-//   issuer: string;
-//   issue_date: string; // The correct property name
-//   expiration_date: string;
-//   image_url: string;
-//   cert_url: string;
-// }
 
 export default function CertificateData() {
   // 🎯 FIX 1: The hook must return an array, so the generic type must be Certificate[].
@@ -26,19 +14,6 @@ export default function CertificateData() {
     "/api/v1/admin/certificate/get",
     "certificate"
   );
-
-  console.log(data);
-
-  // 2. Placeholder functions for Edit and Delete actions
-  const handleEdit = (id: string) => {
-    console.log(`Edit certificate with ID: ${id}`);
-    // *** Implementation Note: You would typically open a dialog (like the previous component) or navigate here.
-  };
-
-  const handleDelete = (id: string) => {
-    console.log(`Delete certificate with ID: ${id}`);
-    // *** Implementation Note: You would typically use a useMutation hook here to send a DELETE request.
-  };
 
   return (
     <section className="p-4 sm:p-6 lg:p-8">

@@ -3,7 +3,7 @@ import { errorResponse } from "@/utils/response";
 import type { Params } from "@/types/params";
 import { NextRequest } from "next/server";
 export async function GET(_request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,
@@ -14,7 +14,7 @@ export async function GET(_request: NextRequest, { params }: Params) {
   try {
     return await getSingleHandler({
       table: "educations",
-      column: "id,school_name,degree,description,created_at",
+      column:"id,school_name,degree,description,field_of_study,start_date,end_date,created_at",
       id: id,
     });
   } catch (error) {

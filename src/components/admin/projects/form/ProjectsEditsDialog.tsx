@@ -15,8 +15,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
-import type { Projects } from "@/types/projects";
 import { FaEdit } from "react-icons/fa";
+import TipTapEdit from "@/components/TiptapEdit";
+import type { Projects, ProjectsFrom } from "@/types/projects";
 
 interface ProjectsDialogFormProps {
   id: string;
@@ -24,10 +25,13 @@ interface ProjectsDialogFormProps {
 
 export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
   // ✅ Fetch single project data
-  const { data, error, isLoading } = useGetSingleData<Projects>(
+  // ✅ Dialog open state
+  const [open, setOpen] = useState(false);
+  const { data, error, isLoading, refetch } = useGetSingleData<Projects>(
     id,
     "/api/v1/admin/projects/get",
-    "projects"
+    "projects",
+    { enabled: open }
   );
 
   // ✅ Update project hook
@@ -36,40 +40,46 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
     "projects"
   );
 
-  // ✅ Dialog open state
-  const [open, setOpen] = useState(false);
-
   // ✅ Controlled form state
-  const [projectName, setProjectName] = useState("");
-  const [description, setDescription] = useState("");
-  const [tech, setTech] = useState("");
-  const [liveDemoUrl, setLiveDemoUrl] = useState("");
-  const [image, setImage] = useState<File | null>(null);
-
+  const [project, setProject] = useState<ProjectsFrom>({
+    project_name: "",
+    description: "",
+    tech: "",
+    image_url: "",
+    live_demo_url: "",
+  });
+  useEffect(() => {
+    if (open) refetch();
+  }, [open, refetch]);
   // ✅ Prefill form when data loads
   useEffect(() => {
     if (data) {
-      setProjectName(data.project_name || "");
-      setDescription(data.description || "");
-      setTech(data.tech || "");
-      setLiveDemoUrl(data.live_demo_url || "");
+      setProject({
+        project_name: data.project_name || "",
+        description: data.description || "",
+        tech: data.tech || "",
+        image_url: data.image_url || "",
+        live_demo_url: data.live_demo_url || "",
+      });
     }
   }, [data]);
+
+  // ✅ Handle TipTap content change
+  const handleRichTextChange = (content: string) => {
+    setProject((prev) => ({ ...prev, description: content }));
+  };
 
   // ✅ Submit update
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    const form = e.currentTarget;
+    const formData = new FormData(form);
 
-    const formData = new FormData();
-    formData.append("project_name", projectName);
-    formData.append("description", description);
-    formData.append("tech", tech);
-    formData.append("live_demo_url", liveDemoUrl);
-    if (image) formData.append("image", image);
+    // Include updated description from TipTap
+    formData.append("description", project.description);
 
-    // ✅ FIX: pass as single object, not two params
+    // Send multipart form data
     updateProject({ id, updates: formData });
-
     setOpen(false);
   };
 
@@ -94,58 +104,74 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
       </DialogTrigger>
 
       <DialogContent className="sm:max-w-[425px] max-h-[500px] overflow-y-auto">
+        <DialogHeader>
+          <DialogTitle>Edit Project</DialogTitle>
+          <DialogDescription>
+            Update your project details below. Click save when done.
+          </DialogDescription>
+        </DialogHeader>
         {isLoading ? (
           <p className="text-center py-6 text-gray-500">Loading project...</p>
         ) : (
           <form onSubmit={handleSubmit}>
-            <DialogHeader>
-              <DialogTitle>Edit Project</DialogTitle>
-              <DialogDescription>
-                Preview and update your project details below. Click save when
-                done.
-              </DialogDescription>
-            </DialogHeader>
-
             <div className="grid gap-4 py-4">
+              {/* Project Name */}
               <div className="grid gap-2">
                 <Label htmlFor="project_name">Project Name</Label>
                 <Input
                   id="project_name"
-                  value={projectName}
-                  onChange={(e) => setProjectName(e.target.value)}
+                  name="project_name"
+                  value={project.project_name}
+                  onChange={(e) =>
+                    setProject((prev) => ({
+                      ...prev,
+                      project_name: e.target.value,
+                    }))
+                  }
                   required
                 />
               </div>
 
+              {/* Description */}
               <div className="grid gap-2">
                 <Label htmlFor="description">Description</Label>
-                <Input
-                  id="description"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  required
+                <TipTapEdit
+                  value={project.description}
+                  onChange={handleRichTextChange}
                 />
               </div>
 
+              {/* Tech Stack */}
               <div className="grid gap-2">
                 <Label htmlFor="tech">Tech Stack</Label>
                 <Input
                   id="tech"
-                  value={tech}
-                  onChange={(e) => setTech(e.target.value)}
+                  name="tech"
+                  value={project.tech}
+                  onChange={(e) =>
+                    setProject((prev) => ({ ...prev, tech: e.target.value }))
+                  }
                   required
                 />
               </div>
 
+              {/* Live Demo URL */}
               <div className="grid gap-2">
                 <Label htmlFor="live_demo_url">Live Demo URL</Label>
                 <Input
                   id="live_demo_url"
-                  value={liveDemoUrl}
-                  onChange={(e) => setLiveDemoUrl(e.target.value)}
+                  name="live_demo_url"
+                  value={project.live_demo_url}
+                  onChange={(e) =>
+                    setProject((prev) => ({
+                      ...prev,
+                      live_demo_url: e.target.value,
+                    }))
+                  }
                 />
               </div>
 
+              {/* Image */}
               <div className="grid gap-2">
                 <Label htmlFor="image">Project Image</Label>
                 {data?.image_url && (
@@ -155,14 +181,7 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
                     className="w-full h-40 object-cover rounded-lg border mb-2"
                   />
                 )}
-                <Input
-                  id="image"
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) =>
-                    setImage(e.target.files ? e.target.files[0] : null)
-                  }
-                />
+                <Input id="image" name="image" type="file" accept="image/*" />
               </div>
             </div>
 

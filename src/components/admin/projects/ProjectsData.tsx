@@ -4,10 +4,14 @@ import { useGetData, useDeleteData } from "@/hooks/useFetch";
 import { Button } from "@/components/ui/button";
 import { Pencil, Trash2 } from "lucide-react";
 import { ProjectsEditDialog } from "./form/ProjectsEditsDialog";
-import { DeleteComp } from "../deleteComp";
+import { DeleteComp } from "../../deleteComp";
+import type { Projects } from "@/types/projects";
 
 export default function ProjectsData() {
-  const { data } = useGetData("/api/v1/admin/projects/get", "projects");
+  const { data } = useGetData<Projects>(
+    "/api/v1/admin/projects/get",
+    "projects"
+  );
 
   if (!data || data.length === 0) {
     return <p className="text-center text-gray-500 mt-8">No Projects Found</p>;
@@ -34,9 +38,9 @@ export default function ProjectsData() {
             <h2 className="text-lg font-semibold mb-1 text-gray-800 dark:text-gray-100">
               {project.project_name}
             </h2>
-            <p className="text-sm text-gray-600 dark:text-gray-400 mb-3 line-clamp-3">
-              {project.description}
-            </p>
+            <div
+              dangerouslySetInnerHTML={{ __html: project.description }}
+            ></div>
 
             <div className="text-xs text-gray-500 dark:text-gray-400 mb-3">
               {project.tech}

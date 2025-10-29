@@ -3,7 +3,7 @@ import { supabase } from "@/utils/server";
 
 interface GetHandlerProps {
   table: string;
-  column?: string;
+  column: string;
   id?: string;
 }
 

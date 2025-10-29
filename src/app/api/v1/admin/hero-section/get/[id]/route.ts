@@ -1,14 +1,9 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
 import { NextRequest } from "next/server";
-
-interface Params {
-  params: {
-    id: string;
-  };
-}
+import type { Params } from "@/types/params";
 
 export async function GET(_request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   return await getSingleHandler({
     table: "hero_section",
     column: "id,full_name,summary,image_url,cta,created_at",

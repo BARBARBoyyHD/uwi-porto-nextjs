@@ -1,5 +1,4 @@
 import { postHandler } from "@/lib/api/postHandler";
-import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {

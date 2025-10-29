@@ -32,10 +32,12 @@ interface HeroEditDialogFormProps {
 
 export function HeroEditDialogForm({ id }: HeroEditDialogFormProps) {
   // ✅ Tell your hook what type of data to expect
-  const { data, isLoading } = useGetSingleData<HeroData>(
+  const [open, setOpen] = useState<boolean>(false);
+  const { data, isLoading, refetch } = useGetSingleData<HeroData>(
     id,
     "/api/v1/admin/hero-section/get",
-    "heroSection"
+    "heroSection",
+    { enabled: open }
   );
 
   const { mutate } = useUpdateData<FormData>(
@@ -43,13 +45,13 @@ export function HeroEditDialogForm({ id }: HeroEditDialogFormProps) {
     "heroSection"
   );
 
-  const [open, setOpen] = useState(false);
   const [fullName, setFullName] = useState("");
   const [summary, setSummary] = useState("");
   const [cta, setCta] = useState("");
   const [image, setImage] = useState<File | null>(null);
 
   // ✅ Populate form with fetched data
+
   useEffect(() => {
     if (data) {
       setFullName(data.full_name || "");
@@ -68,19 +70,6 @@ export function HeroEditDialogForm({ id }: HeroEditDialogFormProps) {
     mutate({ id, updates: formData });
     setOpen(false);
   };
-
-  if (isLoading) {
-    return (
-      <Button
-        variant="ghost"
-        size="icon"
-        disabled
-        className="text-blue-400 hover:text-blue-300 hover:bg-zinc-700"
-      >
-        <FaEdit size={16} className="animate-pulse" />
-      </Button>
-    );
-  }
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>

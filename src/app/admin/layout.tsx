@@ -1,9 +1,13 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "../globals.css";
 import { TanstackProvider } from "@/utils/ReactQueryProviders";
 import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+
+import { Suspense } from "react";
+import Loading from "./loading";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -17,9 +21,9 @@ const geistMono = Geist_Mono({
 
 export default function AdminLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <SidebarProvider>
       <AppSidebar />
@@ -27,7 +31,9 @@ export default function AdminLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-full`}
       >
         <SidebarTrigger />
-        <TanstackProvider>{children}</TanstackProvider>
+        <Suspense fallback={<Loading />}>
+          <TanstackProvider>{children}</TanstackProvider>
+        </Suspense>
       </main>
     </SidebarProvider>
   );

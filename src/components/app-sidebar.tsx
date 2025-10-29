@@ -19,6 +19,8 @@ import {
   FiSettings,
   FiLogOut,
 } from "react-icons/fi";
+import { useLogout } from "@/hooks/use-Auth";
+
 
 interface SidebarItemProps {
   name: string;
@@ -97,8 +99,9 @@ export function AppSidebar() {
       {/* Footer */}
       <SidebarFooter className="p-4 border-t border-border">
         <button
+        onClick={useLogout}
           className={cn(
-            "w-full flex items-center gap-3 text-sm font-medium text-muted-foreground",
+            "w-full flex items-center gap-3 text-sm font-medium text-muted-foreground cursor-pointer",
             "hover:text-foreground hover:bg-accent rounded-lg px-3 py-2 transition"
           )}
         >

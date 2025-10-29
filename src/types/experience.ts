@@ -2,8 +2,8 @@ export type Experience = {
   id: string;
   company_name: string;
   position: string;
-  start_date: Date | string;
-  end_date?: Date|string | null;
+  start_date: string | Date;
+  end_date?: string | Date | null;
   description?: string;
   currently_working: boolean;
 };

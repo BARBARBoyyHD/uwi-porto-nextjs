@@ -7,6 +7,7 @@ export async function GET() {
       table: "certificates",
       column:
         "id, cert_name, issuer, issuer_date, expiration_date, image_url, cert_url, created_at",
+      
     });
   } catch (error) {
     if (error instanceof Error) {

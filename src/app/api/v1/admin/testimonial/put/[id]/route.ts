@@ -1,13 +1,13 @@
 import { putHandler } from "@/lib/api/putHandler";
 import { deleteImage } from "@/services/deleteImageService";
 import { uploadImage } from "@/services/uploadImageServices";
-import type { Params } from "@/types/params";
 import { NextRequest } from "next/server";
 import { errorResponse } from "@/utils/response";
 import { supabase } from "@/utils/server";
+import type { Params } from "@/types/params";
 
 export async function PUT(req: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,
@@ -46,13 +46,12 @@ export async function PUT(req: NextRequest, { params }: Params) {
   let image_url: string | null = existingProject.image_url;
 
   // 2️⃣ If user uploaded a new image, upload new & delete old
-  if (image) {
+  if (image && image.size > 0) {
     const newImageUrl = await uploadImage({
       file: image,
       bucket: "testimonial",
     });
 
-    // Delete old image if it exists
     if (image_url) {
       try {
         await deleteImage({

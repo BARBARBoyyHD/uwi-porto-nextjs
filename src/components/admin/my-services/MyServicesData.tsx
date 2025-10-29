@@ -1,54 +1,54 @@
-"use client"
+"use client";
 
 import { useGetData } from "@/hooks/useFetch";
-import React from "react";
 import type { MyServices } from "@/types/my-services";
-import { FaPencilAlt, FaTrash } from 'react-icons/fa'; 
+import { DeleteComp } from "../../deleteComp";
 import { MyServicesEditDialog } from "./form/MyServiceEditDialog";
-import { DeleteComp } from "../deleteComp";
-
+import { SpinnerLoading } from "@/components/SpinnerLoading";
+import { useOptimisticList } from "@/hooks/useOptimisticList";
 
 export default function MyServicesData() {
-
-  const { data } = useGetData<MyServices>( 
+  const { data, isLoading } = useGetData<MyServices>(
     "/api/v1/admin/my-services/get",
     "myService"
   );
 
-  console.log(data);
-
+  const [optimisticServices] = useOptimisticList<MyServices>(data ?? []);
   return (
-    <section className="container mx-auto p-4 sm:p-6 lg:p-8">     
-      
-      {data && Array.isArray(data) && data.length > 0 ? (
- 
-     
-        <div className="flex flex-wrap -mx-3"> 
-          {data.map((service) => (
-            <div 
-              key={service.id} 
-              className="w-full sm:w-1/2 lg:w-1/3 p-3" 
-            >
-              
-              <div 
-                className="h-full bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col"
-              >
+    <section className="container mx-auto p-4 sm:p-6 lg:p-8">
+      {isLoading ? (
+        <div>
+          <SpinnerLoading />
+        </div>
+      ) : optimisticServices &&
+        Array.isArray(optimisticServices) &&
+        optimisticServices.length > 0 ? (
+        <div className="flex flex-wrap -mx-3">
+          {optimisticServices.map((service) => (
+            <div key={service.id} className="w-full sm:w-1/2 lg:w-1/3 p-3">
+              <div className="h-full bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
                 <div className="p-6 flex-grow">
                   <h3 className="text-xl font-semibold text-indigo-600 mb-2">
                     {service.title}
                   </h3>
-                  
-                  <div 
+
+                  <div
                     className="text-gray-600 mb-4 prose prose-sm max-w-none"
-                    dangerouslySetInnerHTML={{ __html: service.description }} 
+                    dangerouslySetInnerHTML={{ __html: service.description }}
                   />
 
                   <p className="text-lg font-bold text-gray-900 mb-4">
-                    Price: <span className="text-green-600">Rp {service.price.toLocaleString("id-ID")}</span>
+                    Price:{" "}
+                    <span className="text-green-600">
+                      Rp {service.price.toLocaleString("id-ID")}
+                    </span>
                   </p>
-                  
+
                   <p className="text-sm text-gray-500 mb-4">
-                    Category: <span className="font-medium text-gray-700">{service.category}</span>
+                    Category:{" "}
+                    <span className="font-medium text-gray-700">
+                      {service.category}
+                    </span>
                   </p>
                 </div>
 

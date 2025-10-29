@@ -1,4 +1,4 @@
-export function normalizeDate(dateString?: string): string | null {
+export function normalizeDate(dateString?: string): string | Date | null {
   if (!dateString) return null;
 
   // If already in YYYY-MM-DD format, return directly

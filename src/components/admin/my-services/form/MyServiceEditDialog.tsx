@@ -1,8 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
-import { FaPencilAlt } from "react-icons/fa"; // Import the pencil icon for the trigger button
 import {
   Dialog,
   DialogClose,
@@ -15,26 +13,27 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useEffect, useState } from "react";
+import { FaPencilAlt } from "react-icons/fa"; // Import the pencil icon for the trigger button
 // IMPORTANT: useUpdateData should typically handle PUT/PATCH
 // useGetSingleData is for fetching the existing data
-import { useUpdateData, useGetSingleData } from "@/hooks/useFetch";
-import { RichTextEditor } from "@/components/richTextEditor";
+import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
 // Assuming MyServices type is available for import
+import TipTapEdit from "@/components/TiptapEdit";
 import type { MyServices, MyServicesForm } from "@/types/my-services";
 
 interface MyServicesDialogFormProps {
   id: string; // Use number type for ID if it's a numeric database ID
 }
 
-// Define the type for the form state, using MyServicesForm (Omit<MyServices, "id">)
-// but ensuring 'price' is a string for the input field.
-
 export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
   // 1. Fetch the existing service data based on the provided ID
-  const { data: initialServiceData, isLoading } = useGetSingleData<MyServices>(
+  const [open, setOpen] = useState(false);
+  const { data: initialServiceData, refetch } = useGetSingleData<MyServices>(
     id,
     `/api/v1/admin/my-services/get/`,
-    `myService`
+    `myService`,
+    { enabled: open }
   );
 
   // 2. Setup the mutation for UPDATING the service (using PUT/PATCH endpoint)
@@ -43,8 +42,6 @@ export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
     `/api/v1/admin/my-services/put/`, // Use update endpoint with ID
     "myService" // Invalidate the main list on successful update
   );
-
-  const [open, setOpen] = useState(false);
 
   // 3. State for form fields, initialized to empty structure
   const [serviceForm, setServiceForm] = useState<MyServicesForm>({
@@ -55,6 +52,10 @@ export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
   });
 
   // 4. useEffect to synchronize fetched data with local form state
+  useEffect(() => {
+    if (open) refetch();
+  }, [open, refetch]);
+
   useEffect(() => {
     if (initialServiceData) {
       setServiceForm({
@@ -90,15 +91,6 @@ export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
     setOpen(false); // Close dialog after submission
   };
 
-  // Show a loading state for the data fetching
-  if (isLoading) {
-    return (
-      <Button variant="ghost" className="text-blue-500" disabled>
-        <FaPencilAlt className="w-4 h-4 mr-2 animate-spin" /> Loading...
-      </Button>
-    );
-  }
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
@@ -112,7 +104,7 @@ export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[520px] overflow-y-auto ">
+      <DialogContent className="w-full max-w-[95vw] sm:max-w-lg max-h-[80vh] overflow-y-auto">
         <form onSubmit={handleSubmit}>
           {/* Change Dialog title and description for EDITING */}
           <DialogHeader>
@@ -139,7 +131,7 @@ export function MyServicesEditDialog({ id }: MyServicesDialogFormProps) {
             {/* Description (Rich Text) Input */}
             <div className="grid gap-2">
               <Label htmlFor="description">Description</Label>
-              <RichTextEditor
+              <TipTapEdit
                 value={serviceForm.description}
                 onChange={handleRichTextChange}
               />

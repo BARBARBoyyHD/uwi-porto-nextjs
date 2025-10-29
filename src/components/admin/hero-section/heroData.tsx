@@ -2,29 +2,35 @@
 
 import { useGetData } from "@/hooks/useFetch";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import { DeleteComp } from "../deleteComp";
+import { DeleteComp } from "../../deleteComp";
 import { HeroEditDialogForm } from "./form/HeroEditDialogForm";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
+import type { HeroType } from "@/types/heroType";
 
 export default function HeroData() {
-  const { data, error } = useGetData(
+  const { data, error, isLoading } = useGetData<HeroType>(
     "/api/v1/admin/hero-section/get",
     "hero-section"
   );
 
-  if (error) return <p className="text-red-500">Error: {error.message}</p>;
+  if (error)
+    return (
+      <p className="text-red-500">Error: {error.message || String(error)}</p>
+    );
 
   return (
     <div className="p-6 space-y-6">
       <h1 className="text-2xl font-bold text-white">Hero Section Data</h1>
-
-      {data && data.length > 0 ? (
+      {isLoading ? (
+        <div className="flex items-center">
+          <SpinnerLoading />
+        </div>
+      ) : data?.length ? (
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-          {data.map((hero: any) => (
+          {data.map((hero, index) => (
             <Card
-              key={hero.id}
-              className="bg-zinc-800 border-zinc-700 text-white rounded-2xl shadow-lg hover:shadow-xl transition"
+              key={index}
+              className="text-primary rounded-2xl shadow-lg hover:shadow-xl transition"
             >
               <CardHeader className="flex flex-row items-center justify-between">
                 <CardTitle className="text-lg font-semibold truncate">
@@ -42,7 +48,7 @@ export default function HeroData() {
               </CardHeader>
 
               <CardContent className="space-y-3">
-                <p className="text-gray-300 text-sm">{hero.summary}</p>
+                <p className="text-secondary-foreground text-sm">{hero.summary}</p>
 
                 {hero.image_url && (
                   <img

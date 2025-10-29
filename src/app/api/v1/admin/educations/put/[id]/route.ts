@@ -6,7 +6,7 @@ import type { EducationsForm } from "@/types/educations";
 import { normalizeDate } from "@/utils/normalizeDate";
 
 export async function PUT(request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,

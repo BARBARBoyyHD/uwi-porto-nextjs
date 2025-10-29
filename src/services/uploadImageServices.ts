@@ -20,7 +20,10 @@ export async function uploadImage({
 
     const { error } = await supabase.storage
       .from(bucket)
-      .upload(filePath, file);
+      .upload(filePath, file, {
+        contentType: file.type, // ensure Supabase knows it's an image
+        upsert: false,
+      });
     if (error) throw error;
 
     const { data } = supabase.storage.from(bucket).getPublicUrl(filePath);

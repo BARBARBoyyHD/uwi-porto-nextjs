@@ -3,15 +3,11 @@ import { normalizeDate } from "@/utils/normalizeDate";
 import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 import type { ExperienceForm } from "@/types/experience";
+import type { Params } from "@/types/params";
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
 
 export async function PUT(request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   try {
     const {
       company_name,

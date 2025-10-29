@@ -4,15 +4,11 @@ import { uploadImage } from "@/services/uploadImageServices";
 import { errorResponse } from "@/utils/response";
 import { supabase } from "@/utils/server";
 import { NextRequest } from "next/server";
+import type { Params } from "@/types/params";
 
-interface PutProps {
-  params: {
-    id: string;
-  };
-}
 
-export async function PUT(request: NextRequest, { params }: PutProps) {
-  const { id } = params;
+export async function PUT(request: NextRequest, { params }: Params) {
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,

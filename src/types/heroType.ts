@@ -1,5 +1,5 @@
 export type HeroType = {
-  id: number;
+  id: string;
   full_name: string;
   summary: string;
   image_url: string;

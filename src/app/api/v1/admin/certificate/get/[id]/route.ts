@@ -3,7 +3,7 @@ import { NextRequest } from "next/server";
 import type { Params } from "@/types/params";
 import { errorResponse } from "@/utils/response";
 export async function GET(_request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,

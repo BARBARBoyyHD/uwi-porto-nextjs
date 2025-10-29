@@ -1,14 +1,10 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
 import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
+import type { Params } from "@/types/params";
 
-interface Params {
-  params: {
-    id: string;
-  };
-}
 export async function GET(_request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,
@@ -19,7 +15,7 @@ export async function GET(_request: NextRequest, { params }: Params) {
   try {
     return await getSingleHandler({
       table: "experiences",
-      column: "id,company_name,position,description,created_at",
+      column: "id,company_name,position,description,start_date,end_date,currently_working,created_at",
       id,
     });
   } catch (error) {
