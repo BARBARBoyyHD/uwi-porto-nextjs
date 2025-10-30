@@ -4,7 +4,7 @@ import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 
 export async function DELETE(request: NextRequest, { params }: Params) {
-  const { id } = params;
+  const { id } = await params;
 
   if (!id) {
     return errorResponse({

@@ -4,8 +4,7 @@ import { NextRequest } from "next/server";
 
 export async function POST(request: NextRequest) {
   try {
-    const formData = await request.formData();
-    const role_name = formData.get("role_name") as string;
+    const { role_name } = await request.json();
 
     return await postHandler({
       table: "job_role",

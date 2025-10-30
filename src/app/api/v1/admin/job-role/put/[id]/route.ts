@@ -1,16 +1,11 @@
 import { putHandler } from "@/lib/api/putHandler";
 import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
-
-interface Params {
-  params: {
-    id: string;
-  };
-}
+import type { Params } from "@/types/params";
 
 export async function PUT(request: NextRequest, { params }: Params) {
   try {
-    const { id } = params;
+    const { id } = await params;
     console.log(id)
     const {role_name} = await request.json();
     return await putHandler({

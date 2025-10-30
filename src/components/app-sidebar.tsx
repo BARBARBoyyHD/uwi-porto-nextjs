@@ -20,6 +20,7 @@ import {
   FiLogOut,
 } from "react-icons/fi";
 import { useLogout } from "@/hooks/use-Auth";
+import { FaUserTie } from "react-icons/fa6";
 
 
 interface SidebarItemProps {
@@ -63,6 +64,11 @@ const sidebarItems: SidebarItemProps[] = [
     name: "Certificates",
     href: "/admin/certificate",
     icon: FiAward,
+  },
+  {
+    name: "Job Role",
+    href: "/admin/job-role",
+    icon: FaUserTie,
   },
 ];
 

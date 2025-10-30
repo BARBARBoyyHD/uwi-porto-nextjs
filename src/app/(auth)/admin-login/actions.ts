@@ -16,5 +16,5 @@ export async function login(formData: FormData) {
     return
   }
 
-  redirect('/admin/dashboard') // change to wherever you want after login
+  redirect('/admin/hero-section') // change to wherever you want after login
 }
