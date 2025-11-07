@@ -1,5 +1,4 @@
 import { getHandler } from "@/lib/api/getHandler";
-import { errorResponse } from "@/utils/response";
 import { AdminRole } from "@/utils/roles";
 
 export async function GET() {

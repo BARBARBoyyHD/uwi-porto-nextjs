@@ -6,6 +6,7 @@ import { useGetData } from "@/hooks/useFetch";
 import type { HeroType } from "@/types/heroType";
 import { DeleteComp } from "../../deleteComp";
 import { HeroEditDialogForm } from "./form/HeroEditDialogForm";
+import Image from "next/image";
 
 export default function HeroData() {
   const { data, error, isLoading } = useGetData<HeroType>(
@@ -59,7 +60,7 @@ export default function HeroData() {
               </p>
 
               {hero.image_url && (
-                <img
+                <Image
                   src={hero.image_url}
                   alt={hero.full_name || "Hero image"}
                   className="w-full h-40 object-cover rounded-xl mt-2"

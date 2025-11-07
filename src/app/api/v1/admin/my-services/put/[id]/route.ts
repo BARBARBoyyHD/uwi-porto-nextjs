@@ -1,7 +1,6 @@
 import { putHandler } from "@/lib/api/putHandler";
-import { errorResponse } from "@/utils/response";
-import { NextRequest } from "next/server";
 import type { Params } from "@/types/params";
+import { NextRequest } from "next/server";
 
 export async function PUT(_request: NextRequest, { params }: Params) {
   const { id } = await params;

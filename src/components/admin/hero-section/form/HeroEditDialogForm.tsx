@@ -34,7 +34,7 @@ interface HeroEditDialogFormProps {
 export function HeroEditDialogForm({ id }: HeroEditDialogFormProps) {
   // ✅ Tell your hook what type of data to expect
   const [open, setOpen] = useState<boolean>(false);
-  const { data, isLoading, refetch } = useGetSingleData<HeroData>(
+  const { data, isLoading } = useGetSingleData<HeroData>(
     id,
     "/api/v1/admin/hero-section/get",
     "heroSection",

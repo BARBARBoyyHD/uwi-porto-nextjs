@@ -14,8 +14,6 @@ export default function HeroComp() {
 
   const hero = optimisticHero?.[0] ?? null;
 
-  // velocity: number (adjust to taste; higher = faster)
-  const velocity = 100;
 
   return (
     <section className=" w-full min-h-screen flex flex-col items-center justify-center pt-24">

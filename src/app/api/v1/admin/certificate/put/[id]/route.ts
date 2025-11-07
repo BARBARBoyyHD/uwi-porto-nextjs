@@ -25,7 +25,7 @@ export async function PUT(request: NextRequest, { params }: Params) {
     const expiration_date = formData.get("expiration_date") as string;
     const image = formData.get("image") as File | null;
     const cert_url = formData.get("cert_url") as string;
-    const { data: existingCertificate, error: findError } = await supabase
+    const { data: existingCertificate } = await supabase
       .from("certificates")
       .select("image_url")
       .eq("id", id)
@@ -41,7 +41,10 @@ export async function PUT(request: NextRequest, { params }: Params) {
 
     // 2️⃣ If user uploaded a new image, upload new & delete old
     if (image) {
-      const newImageUrl = await uploadImage({ file: image, bucket: "certificate" });
+      const newImageUrl = await uploadImage({
+        file: image,
+        bucket: "certificate",
+      });
 
       // Delete old image if it exists
       if (image_url) {

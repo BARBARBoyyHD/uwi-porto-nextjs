@@ -26,7 +26,7 @@ export async function PUT(_request: NextRequest, { params }: Params) {
   const image = formData.get("image") as File | null;
 
   // 1️⃣ Get current record to know existing image URL
-  const { data: existingProject, error: findError } = await supabase
+  const { data: existingProject } = await supabase
     .from("projects")
     .select("image_url")
     .eq("id", id)

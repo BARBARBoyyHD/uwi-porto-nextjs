@@ -3,7 +3,7 @@ import { supabase } from "@/utils/server";
 import { cookies } from "next/headers";
 import { NextResponse } from "next/server";
 
-export async function POST(request: Request) {
+export async function POST() {
   const cookieStore = await cookies();
   const { error } = await supabase.auth.signOut();
   if (error) {

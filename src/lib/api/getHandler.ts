@@ -1,5 +1,4 @@
 import { errorResponse, successResponse } from "@/utils/response";
-import { supabase } from "@/utils/server";
 import { SupabaseClient } from "@supabase/supabase-js";
 
 interface GetHandlerProps {

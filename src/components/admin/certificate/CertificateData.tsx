@@ -8,7 +8,7 @@ import { CertificateEditFormDialog } from "./form/CertificateEditForm";
 
 export default function CertificateData() {
   // 🎯 FIX 1: The hook must return an array, so the generic type must be Certificate[].
-  const { data, error, isLoading } = useGetData<Certificate>(
+  const { data, isLoading } = useGetData<Certificate>(
     "/api/v1/admin/certificate/get",
     "certificate"
   );

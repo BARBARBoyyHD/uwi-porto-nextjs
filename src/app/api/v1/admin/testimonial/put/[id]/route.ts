@@ -29,7 +29,7 @@ export async function PUT(req: NextRequest, { params }: Params) {
       message: "Missing required fields",
     });
   }
-  const { data: existingProject, error: findError } = await supabase
+  const { data: existingProject } = await supabase
     .from("testimonials")
     .select("image_url")
     .eq("id", id)

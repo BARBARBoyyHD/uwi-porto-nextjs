@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
 import type { Testimonial, TestimonialForm } from "@/types/testimonial";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
@@ -160,7 +161,7 @@ export function TestimonialEditDialog({ id }: TestimonialDialogFormProps) {
               <div className="grid gap-2">
                 <Label htmlFor="image">client Image</Label>
                 {data?.image_url && (
-                  <img
+                  <Image
                     src={data.image_url}
                     alt="Current client"
                     className="w-full h-40 object-cover rounded-lg border mb-2"

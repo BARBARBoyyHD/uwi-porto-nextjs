@@ -7,10 +7,10 @@ interface PutHandlerProps<T> {
   table: string;
   id: string;
   message: string;
-  imageColumn?: string; // e.g., "image_url"
-  bucket?: string; // e.g., "projects"
-  data: T; // includes other updated fields
-  newImageFile?: File; // optional new image
+  imageColumn?: string; 
+  bucket?: string; 
+  data: T; 
+  newImageFile?: File; 
 }
 
 export async function putHandler<T extends Record<string, any>>({
@@ -42,7 +42,7 @@ export async function putHandler<T extends Record<string, any>>({
       });
     }
 
-    let updatedPayload: Record<string, any> = { ...data };
+    const updatedPayload: Record<string, any> = { ...data };
 
     // 2️⃣ Handle image upload if bucket + imageColumn + newImageFile exist
     if (bucket && imageColumn && newImageFile) {

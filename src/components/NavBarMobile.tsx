@@ -1,10 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
-import { Button } from "./ui/button";
+import Link from "next/link";
+import { useState } from "react";
 
 interface NavItem {
   name: string;

@@ -6,11 +6,10 @@ import Highlight from "@tiptap/extension-highlight";
 import MenuBar from "./MenuBar";
 
 interface TipTapProps {
-  value?: string;
   onChange: (html: string) => void;
 }
 
-const TipTap = ({ value, onChange }: TipTapProps) => {
+const TipTap = ({ onChange }: TipTapProps) => {
   const editor = useEditor({
     extensions: [StarterKit, Highlight],
     content: "Start Typing...",
