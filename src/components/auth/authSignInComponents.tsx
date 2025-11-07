@@ -1,12 +1,12 @@
 "use client";
 
-import { useRouter } from "next/navigation";
-import { useTransition } from "react";
 import { login } from "@/app/(auth)/admin-login/actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useRouter } from "next/navigation";
+import { useTransition } from "react";
 import { toast } from "sonner";
 import { SpinnerLoading } from "../SpinnerLoading";
 

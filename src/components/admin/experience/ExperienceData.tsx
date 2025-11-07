@@ -1,12 +1,11 @@
 "use client";
 
-import { useGetData } from "@/hooks/useFetch";
-import React from "react";
-import type { Experience } from "@/types/experience";
+import { DeleteComp } from "@/components/deleteComp";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
+import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import { formatDate } from "@/lib/formatDate";
-import { DeleteComp } from "@/components/deleteComp";
+import type { Experience } from "@/types/experience";
 import { ExperienceFormEditDialog } from "./form/ExperienceEditFormDialog";
 
 export default function ExperienceData() {

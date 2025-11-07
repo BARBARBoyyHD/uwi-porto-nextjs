@@ -18,9 +18,9 @@ import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
 import type { Educations, EducationsForm } from "@/types/educations";
 import { useEffect, useState } from "react";
 
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 import TipTapEdit from "@/components/TiptapEdit";
 import { FaPencilAlt } from "react-icons/fa";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 interface EducationDialogFormProps {
   id: string;

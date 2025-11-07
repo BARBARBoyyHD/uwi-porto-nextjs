@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { Experience } from "@/types/experience";
+import { motion } from "framer-motion";
 
 export default function ExperiencesComp() {
   const { data } = useGetData<Experience>("/api/v2/experience", "experience");

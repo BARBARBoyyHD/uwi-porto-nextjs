@@ -1,10 +1,9 @@
 "use client";
 
-import { useGetData } from "@/hooks/useFetch";
-import React from "react";
-import type { HeroType } from "@/types/heroType";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
 import ProfileCard from "@/components/ProfileCard";
+import { useGetData } from "@/hooks/useFetch";
+import { useOptimisticList } from "@/hooks/useOptimisticList";
+import type { HeroType } from "@/types/heroType";
 import { motion } from "framer-motion";
 
 export default function MyServicesComp() {

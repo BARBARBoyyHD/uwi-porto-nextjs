@@ -1,11 +1,10 @@
 "use client";
 
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { useGetData } from "@/hooks/useFetch";
-import React from "react";
+import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { Testimonial } from "@/types/testimonial";
 import Image from "next/image";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { DeleteComp } from "../../deleteComp";
 import { TestimonialEditDialog } from "./form/TestimonialEditDialog";
 

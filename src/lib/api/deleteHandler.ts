@@ -1,5 +1,5 @@
-import { successResponse, errorResponse } from "@/utils/response";
 import { deleteImage } from "@/services/deleteImageService";
+import { errorResponse, successResponse } from "@/utils/response";
 import { createClient } from "@/utils/supabaseClient";
 
 interface DeleteHandlerProps {

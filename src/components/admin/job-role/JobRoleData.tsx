@@ -1,13 +1,12 @@
 "use client";
 
-import { useGetData } from "@/hooks/useFetch";
-import React from "react";
-import { JobFormEditDialog } from "./form/JobFormEditDialog";
-import type { JobRole } from "@/types/jobroles";
-import { Briefcase } from "lucide-react";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { DeleteComp } from "@/components/deleteComp";
+import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
+import type { JobRole } from "@/types/jobroles";
+import { Briefcase } from "lucide-react";
+import { JobFormEditDialog } from "./form/JobFormEditDialog";
 
 export default function JobRoleData() {
   const { data, isLoading } = useGetData<JobRole>(

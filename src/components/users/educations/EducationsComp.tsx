@@ -1,9 +1,9 @@
 "use client";
 
-import { motion } from "framer-motion";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { Educations } from "@/types/educations";
+import { motion } from "framer-motion";
 
 export default function EducationsComp() {
   const { data } = useGetData<Educations>("/api/v2/educations", "educations");

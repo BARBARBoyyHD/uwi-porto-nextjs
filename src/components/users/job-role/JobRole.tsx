@@ -1,8 +1,7 @@
-import { useGetData } from "@/hooks/useFetch";
-import React from "react";
-import type { JobRole } from "@/types/jobroles";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
 import ScrollVelocity from "@/components/ScrollVelocity";
+import { useGetData } from "@/hooks/useFetch";
+import { useOptimisticList } from "@/hooks/useOptimisticList";
+import type { JobRole } from "@/types/jobroles";
 export default function JobRoleComp() {
   const { data: jobRole } = useGetData<JobRole>(
     "/api/v2/job-role",

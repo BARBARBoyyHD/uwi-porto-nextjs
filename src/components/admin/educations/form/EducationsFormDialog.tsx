@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { DatePicker } from "@/components/datepicker";
+import TipTap from "@/components/Tiptap";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,10 +15,9 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DatePicker } from "@/components/datepicker";
 import { usePostData } from "@/hooks/useFetch";
 import type { EducationsForm } from "@/types/educations";
-import TipTap from "@/components/Tiptap";
+import { useState } from "react";
 
 export function EducationsFormDialog() {
   const { mutate } = usePostData<EducationsForm>(

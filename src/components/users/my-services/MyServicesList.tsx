@@ -1,13 +1,11 @@
 "use client";
 
+import SpotlightCard from "@/components/SpotlightCard";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
-import { motion } from "framer-motion";
 import type { MyServices } from "@/types/my-services";
-import React from "react";
-import ElectricBorder from "@/components/ElectricBorder";
+import { motion } from "framer-motion";
 import Link from "next/link";
-import SpotlightCard from "@/components/SpotlightCard";
 
 export default function MyServicesList() {
   const { data } = useGetData<MyServices>("/api/v2/my-services", "my-services");

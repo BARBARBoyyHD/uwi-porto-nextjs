@@ -2,7 +2,6 @@
 import InfiniteScroll from "@/components/InfiniteScroll";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
-import React from "react";
 import type { Testimonial } from "@/types/testimonial";
 import Image from "next/image";
 

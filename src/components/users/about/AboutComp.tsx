@@ -3,7 +3,6 @@ import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { HeroType } from "@/types/heroType";
 import Image from "next/image";
-import React from "react";
 
 export default function AboutComp() {
   const { data } = useGetData<HeroType>(

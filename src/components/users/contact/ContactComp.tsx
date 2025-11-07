@@ -1,12 +1,11 @@
 "use client";
 
-import { motion } from "framer-motion";
 import ProfileCard from "@/components/ProfileCard";
-import { Mail, Linkedin, Github, Phone } from "lucide-react";
-import React from "react";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { HeroType } from "@/types/heroType";
+import { motion } from "framer-motion";
+import { Github, Linkedin, Mail, Phone } from "lucide-react";
 export default function ContactComp() {
   const { data } = useGetData<HeroType>("/api/v2/hero-section", "hero-section");
   const [optimisticContact] = useOptimisticList(data || []);

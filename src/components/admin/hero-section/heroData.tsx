@@ -1,11 +1,11 @@
 "use client";
 
-import { useGetData } from "@/hooks/useFetch";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { useGetData } from "@/hooks/useFetch";
+import type { HeroType } from "@/types/heroType";
 import { DeleteComp } from "../../deleteComp";
 import { HeroEditDialogForm } from "./form/HeroEditDialogForm";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
-import type { HeroType } from "@/types/heroType";
 
 export default function HeroData() {
   const { data, error, isLoading } = useGetData<HeroType>(

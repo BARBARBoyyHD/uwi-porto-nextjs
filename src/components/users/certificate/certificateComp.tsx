@@ -2,7 +2,6 @@
 
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
-import React from "react";
 import type { Certificate } from "@/types/certificates";
 import { motion } from "framer-motion";
 import Image from "next/image";

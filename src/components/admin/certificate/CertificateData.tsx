@@ -1,13 +1,10 @@
 "use client";
-import { useGetData } from "@/hooks/useFetch";
-import React from "react";
-import type { Certificate } from "@/types/certificates";
-import { FaEdit, FaTrash } from "react-icons/fa";
-import Image from "next/image";
-import { CertificateEditFormDialog } from "./form/CertificateEditForm";
-import { DeleteComp } from "../../deleteComp";
-import { Delete } from "lucide-react";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
+import { useGetData } from "@/hooks/useFetch";
+import type { Certificate } from "@/types/certificates";
+import Image from "next/image";
+import { DeleteComp } from "../../deleteComp";
+import { CertificateEditFormDialog } from "./form/CertificateEditForm";
 
 export default function CertificateData() {
   // 🎯 FIX 1: The hook must return an array, so the generic type must be Certificate[].

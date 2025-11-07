@@ -1,11 +1,11 @@
 "use client";
 
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { useGetData } from "@/hooks/useFetch";
+import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { MyServices } from "@/types/my-services";
 import { DeleteComp } from "../../deleteComp";
 import { MyServicesEditDialog } from "./form/MyServiceEditDialog";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
 
 export default function MyServicesData() {
   const { data, isLoading } = useGetData<MyServices>(

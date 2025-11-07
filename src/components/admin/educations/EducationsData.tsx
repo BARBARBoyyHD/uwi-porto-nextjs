@@ -1,14 +1,12 @@
 "use client";
 
+import { DeleteComp } from "@/components/deleteComp";
 import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import { formatDate } from "@/lib/formatDate";
 import type { Educations } from "@/types/educations";
-import React from "react";
-import { FaPencilAlt, FaTrash } from "react-icons/fa";
 import { EducationEditFormDialog } from "./form/EducationFormEditDialog";
-import { DeleteComp } from "@/components/deleteComp";
 
 export default function EducationsList() {
   const { data, isLoading } = useGetData<Educations>(

@@ -1,8 +1,8 @@
 import { signup } from "@/app/(auth)/admin-register/actions";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 export default function AdminRegisterComp() {
   return (
     <div className="dark min-h-screen flex items-center justify-center  px-4">

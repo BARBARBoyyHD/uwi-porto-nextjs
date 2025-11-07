@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
+import TipTapEdit from "@/components/TiptapEdit";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,10 +16,9 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
-import { FaEdit } from "react-icons/fa";
-import TipTapEdit from "@/components/TiptapEdit";
 import type { Projects, ProjectsFrom } from "@/types/projects";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
+import { useEffect, useState } from "react";
+import { FaEdit } from "react-icons/fa";
 
 interface ProjectsDialogFormProps {
   id: string;

@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,8 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
+import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
-import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 // ✅ Define a type for your Hero data
 interface HeroData {

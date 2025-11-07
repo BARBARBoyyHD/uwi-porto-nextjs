@@ -15,10 +15,10 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
-import { useEffect, useState, useRef } from "react"; // 💡 Import useRef
 import type { Certificate } from "@/types/certificates";
-import { FaEdit } from "react-icons/fa";
 import Image from "next/image"; // 💡 Import Next.js Image component
+import { useEffect, useRef, useState } from "react"; // 💡 Import useRef
+import { FaEdit } from "react-icons/fa";
 
 interface CertificateFormDialogProps {
   id: string;

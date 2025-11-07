@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import TipTap from "@/components/Tiptap";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -15,8 +15,8 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { usePostData } from "@/hooks/useFetch";
-import TipTap from "@/components/Tiptap";
 import type { ProjectsFrom } from "@/types/projects";
+import { useState } from "react";
 
 export function ProjectsDialog() {
   const { mutate } = usePostData<FormData>("/api/v1/admin/projects/create", "projects");
