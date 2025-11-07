@@ -13,12 +13,16 @@ const nextConfig: NextConfig = {
     ],
   },
   webpack: (config) => {
+  if (process.env.NODE_ENV === "development") {
+    config.cache = { type: "memory" };
+  } else {
     config.cache = {
       type: "filesystem",
       compression: "brotli",
     };
-    return config;
-  },
+  }
+  return config;
+},
 };
 
 const withBundleAnalyzer = BundleAnalyzer({
