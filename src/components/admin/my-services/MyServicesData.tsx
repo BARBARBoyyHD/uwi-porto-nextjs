@@ -14,8 +14,9 @@ export default function MyServicesData() {
   );
 
   const [optimisticServices] = useOptimisticList<MyServices>(data ?? []);
+
   return (
-    <section className="container mx-auto p-4 sm:p-6 lg:p-8">
+    <section className="container mx-auto p-4 sm:p-6 lg:p-8 dark">
       {isLoading ? (
         <div>
           <SpinnerLoading />
@@ -26,7 +27,7 @@ export default function MyServicesData() {
         <div className="flex flex-wrap -mx-3">
           {optimisticServices.map((service) => (
             <div key={service.id} className="w-full sm:w-1/2 lg:w-1/3 p-3">
-              <div className="h-full bg-white rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
+              <div className="h-full bg-amber-50 rounded-lg shadow-lg hover:shadow-xl transition-shadow duration-300 overflow-hidden flex flex-col">
                 <div className="p-6 flex-grow">
                   <h3 className="text-xl font-semibold text-indigo-600 mb-2">
                     {service.title}
@@ -65,7 +66,7 @@ export default function MyServicesData() {
           ))}
         </div>
       ) : (
-        <p className="text-center text-gray-500 mt-12 text-xl py-10 border rounded-lg bg-gray-50">
+        <p className="text-center text-gray-500 mt-12 text-xl py-10">
           😔 No Services Found
         </p>
       )}

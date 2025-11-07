@@ -5,8 +5,8 @@ import React from "react";
 export default function TestiMonialPage() {
   return (
     <section>
-      <div>
-        <h1>Testimonial</h1>
+      <div className="flex items-center justify-between p-6">
+        <h1 className="dark:text-primary-foreground text-primary font-bold text-2xl">Testimonial</h1>
         <TestimonialDialog />
       </div>
       <TestimonialData/>

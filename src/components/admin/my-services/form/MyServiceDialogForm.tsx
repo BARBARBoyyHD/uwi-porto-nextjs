@@ -62,7 +62,7 @@ export function MyServicesDialog() {
         </Button>
       </DialogTrigger>
 
-      <DialogContent className="max-h-[520px] overflow-y-auto ">
+      <DialogContent className="max-h-[520px] overflow-y-auto dark">
         <form onSubmit={handleSubmit}>
           {/* ... DialogHeader ... */}
           <DialogHeader>

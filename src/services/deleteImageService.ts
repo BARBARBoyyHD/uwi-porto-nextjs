@@ -1,6 +1,4 @@
-import { SUPABASE_URL } from "@/config/supabaseKey";
-import {supabase} from "@/utils/server";
-
+import { createClient } from "@/utils/supabaseClient";
 /**
  * Delete an image from a Supabase storage bucket
  * @param bucket - name of the bucket (e.g., "hero")
@@ -16,6 +14,8 @@ export async function deleteImage({
   bucket,
   filePath,
 }: DeleteImageProps): Promise<void> {
+  const supabase = await createClient();
+
   if (!filePath) throw new Error("No file path provided");
 
   const relativePath = filePath.includes(`/storage/v1/object/public/${bucket}/`)

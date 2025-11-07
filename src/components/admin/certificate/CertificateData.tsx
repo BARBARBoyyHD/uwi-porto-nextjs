@@ -7,31 +7,27 @@ import Image from "next/image";
 import { CertificateEditFormDialog } from "./form/CertificateEditForm";
 import { DeleteComp } from "../../deleteComp";
 import { Delete } from "lucide-react";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 export default function CertificateData() {
   // 🎯 FIX 1: The hook must return an array, so the generic type must be Certificate[].
-  const { data, error } = useGetData<Certificate>(
+  const { data, error, isLoading } = useGetData<Certificate>(
     "/api/v1/admin/certificate/get",
     "certificate"
   );
 
+  if (isLoading) {
+    return (
+      <div>
+        <SpinnerLoading />
+      </div>
+    );
+  }
   return (
     <section className="p-4 sm:p-6 lg:p-8">
-      {/* 3. Loading and Error States */}
-      {error && (
-        <div className="text-red-600 font-semibold">
-          Error loading certificates.
-        </div>
-      )}
-
-      {/* Show a loading state if data is null/undefined and no error */}
-      {!data && !error && (
-        <div className="text-gray-500">Loading certificates...</div>
-      )}
-
       {/* 4. Flex container with wrapping */}
       {/* 🎯 Note: data should be checked for an array if data is defined and not null. */}
-      {Array.isArray(data) && data.length > 0 ? (
+      {data && data.length > 0 ? (
         <div className="flex flex-wrap gap-6 justify-center lg:justify-start">
           {data.map((cert) => (
             // 5. Styled Card for each Certificate
@@ -110,11 +106,11 @@ export default function CertificateData() {
         </div>
       ) : (
         // 7. Empty State
-        !error && (
-          <div className="text-center p-10 bg-gray-50 rounded-lg text-gray-500">
+        
+          <div className="text-center rounded-lg text-gray-500">
             No certificates found.
           </div>
-        )
+        
       )}
     </section>
   );

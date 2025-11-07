@@ -1,19 +1,23 @@
 import type { NextConfig } from "next";
 import BundleAnalyzer from "@next/bundle-analyzer";
+import { HOSTNAME } from "@/config/supabaseKey";
+
 const nextConfig: NextConfig = {
-  /* config options here */
   images: {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "lyqxnzgfylspkrgjpvdu.supabase.co",
+        hostname: HOSTNAME,
         pathname: "/storage/v1/object/public/**",
       },
     ],
   },
-  cacheComponents: true,
-  experimental: {
-    useCache: true,
+  webpack: (config) => {
+    config.cache = {
+      type: "filesystem",
+      compression: "brotli",
+    };
+    return config;
   },
 };
 

@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Highlight from "@tiptap/extension-highlight";
@@ -20,9 +21,15 @@ const TipTapEdit = ({ value, onChange }: TipTapEditProps) => {
         class: "h-[300px] border p-2 rounded-md",
       },
     },
-    // 👇 This line is the key fix
     immediatelyRender: false,
   });
+
+  // 🧩 Sync content when "value" changes (e.g., fetched from API)
+  useEffect(() => {
+    if (editor && value !== editor.getHTML()) {
+      editor.commands.setContent(value || "");
+    }
+  }, [value, editor]);
 
   return (
     <div className="w-full max-w-full" onClick={(e) => e.stopPropagation()}>

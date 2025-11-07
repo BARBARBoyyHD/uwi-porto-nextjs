@@ -1,11 +1,17 @@
 import { getHandler } from "@/lib/api/getHandler";
+
 import { errorResponse } from "@/utils/response";
+import { AdminRole } from "@/utils/roles";
+
 
 export async function GET() {
+  const client = await AdminRole();
   try {
     return await getHandler({
       table: "educations",
-      column: "id,school_name,degree,description,field_of_study,start_date,end_date,created_at",
+      column:
+        "id,school_name,degree,description,field_of_study,start_date,score,end_date,created_at",
+      client: client,
     });
   } catch (error) {
     if (error instanceof Error) {

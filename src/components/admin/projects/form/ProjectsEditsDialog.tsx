@@ -18,6 +18,7 @@ import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
 import { FaEdit } from "react-icons/fa";
 import TipTapEdit from "@/components/TiptapEdit";
 import type { Projects, ProjectsFrom } from "@/types/projects";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 interface ProjectsDialogFormProps {
   id: string;
@@ -111,7 +112,7 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (
-          <p className="text-center py-6 text-gray-500">Loading project...</p>
+          <SpinnerLoading/>
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4 py-4">

@@ -1,5 +1,4 @@
-import { supabase } from "@/utils/server";
-
+import { createClient } from "@/utils/supabaseClient";
 interface UploadImageProps {
   file: File;
   bucket: string;
@@ -9,6 +8,8 @@ export async function uploadImage({
   file,
   bucket,
 }: UploadImageProps): Promise<string> {
+  const supabase = await createClient();
+
   try {
     if (!file) throw new Error("No file provided");
 

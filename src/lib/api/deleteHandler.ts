@@ -1,6 +1,6 @@
-import { supabase } from "@/utils/server";
 import { successResponse, errorResponse } from "@/utils/response";
 import { deleteImage } from "@/services/deleteImageService";
+import { createClient } from "@/utils/supabaseClient";
 
 interface DeleteHandlerProps {
   id: string | number;
@@ -22,6 +22,7 @@ export async function deleteHandler({
       message: "Missing required fields: id or table",
     });
   }
+  const supabase = await createClient();
 
   try {
     // 1️⃣ Dynamically select columns

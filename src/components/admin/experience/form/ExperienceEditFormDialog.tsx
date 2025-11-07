@@ -1,7 +1,8 @@
 "use client";
 
 import { DatePicker } from "@/components/datepicker";
-import TipTap from "@/components/Tiptap";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
+import TipTapEdit from "@/components/TiptapEdit";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -35,7 +36,6 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
     "experience",
     { enabled: open }
   );
-
   const { mutate } = useUpdateData<ExperienceForm>(
     "/api/v1/admin/experience/put",
     "experience"
@@ -55,7 +55,7 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
 
   // ✅ Prefill form when data loads
   useEffect(() => {
-    if (experience) {
+    if (open && experience) {
       setCompanyName(experience.company_name || "");
       setPosition(experience.position || "");
       setIsCurrentlyWorking(experience.currently_working || false);
@@ -67,7 +67,7 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
         experience.end_date ? new Date(experience.end_date) : undefined
       );
     }
-  }, [experience]);
+  }, [open, experience]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -116,7 +116,7 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (
-          <p className="text-center py-4">Loading data...</p>
+          <SpinnerLoading />
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4 py-4">
@@ -187,7 +187,12 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
 
               <div className="grid gap-2">
                 <Label htmlFor="description">Description</Label>
-                <TipTap value={description} onChange={handleRichTextChange} />
+              
+                  <TipTapEdit
+                    value={description}
+                    onChange={handleRichTextChange}
+                  />
+                
               </div>
             </div>
 

@@ -35,7 +35,10 @@ export function ProjectsDialog() {
     const formData = new FormData(form);
 
     // Manually include description from TipTap
+    formData.append("project_name", project.project_name);
     formData.append("description", project.description);
+    formData.append("tech", project.tech);
+    formData.append("image_url", project.image_url);
 
     mutate(formData); // send multipart form data
     setOpen(false);

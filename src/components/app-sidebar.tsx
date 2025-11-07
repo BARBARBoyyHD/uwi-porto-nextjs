@@ -74,7 +74,7 @@ const sidebarItems: SidebarItemProps[] = [
 
 export function AppSidebar() {
   return (
-    <Sidebar className="bg-background text-secondary-foreground border-r border-border w-64 flex flex-col">
+    <Sidebar className="dark bg-background text-secondary-foreground border-r border-border w-64 flex flex-col">
       {/* Header */}
       <SidebarHeader className="p-4 border-b border-border">
         <h1 className="text-2xl font-bold tracking-tight">Portfolio</h1>

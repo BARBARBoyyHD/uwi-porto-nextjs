@@ -1,15 +1,17 @@
 import { errorResponse, successResponse } from "@/utils/response";
 import { supabase } from "@/utils/server";
+import { SupabaseClient } from "@supabase/supabase-js";
 
 interface GetHandlerProps {
   table: string;
   column: string;
   id?: string;
+  client: SupabaseClient;
 }
 
-export async function getHandler({ table, column }: GetHandlerProps) {
+export async function getHandler({ table, column, client }: GetHandlerProps) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from(table)
       .select(`${column ? column : "*"}`);
 
@@ -42,9 +44,14 @@ export async function getHandler({ table, column }: GetHandlerProps) {
   }
 }
 
-export async function getSingleHandler({ table, column, id }: GetHandlerProps) {
+export async function getSingleHandler({
+  table,
+  column,
+  id,
+  client,
+}: GetHandlerProps) {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await client
       .from(table)
       .select(column || "*")
       .eq("id", id)

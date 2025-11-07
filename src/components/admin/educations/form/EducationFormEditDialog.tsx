@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { DatePicker } from "@/components/datepicker";
 import { Button } from "@/components/ui/button";
 import {
   Dialog,
@@ -14,11 +14,13 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { DatePicker } from "@/components/datepicker";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
-import type { EducationsForm,Educations } from "@/types/educations";
-import TipTap from "@/components/Tiptap";
+import type { Educations, EducationsForm } from "@/types/educations";
+import { useEffect, useState } from "react";
+
+import TipTapEdit from "@/components/TiptapEdit";
 import { FaPencilAlt } from "react-icons/fa";
+import { SpinnerLoading } from "@/components/SpinnerLoading";
 
 interface EducationDialogFormProps {
   id: string;
@@ -28,14 +30,13 @@ export function EducationEditFormDialog({ id }: EducationDialogFormProps) {
   const [open, setOpen] = useState(false);
 
   // ✅ Fetch data only when dialog opens
-  const { data } = useGetSingleData<Educations>(
+  const { data, isLoading } = useGetSingleData<Educations>(
     id,
     `/api/v1/admin/educations/get`,
     "educations",
     { enabled: open }
   );
-
-  // ✅ Update API call
+  
   const { mutate } = useUpdateData<EducationsForm>(
     "/api/v1/admin/educations/put",
     "educations"
@@ -99,7 +100,7 @@ export function EducationEditFormDialog({ id }: EducationDialogFormProps) {
       end_date: endDate.toISOString().split("T")[0],
     };
 
-    mutate({ id:id, updates: payload });
+    mutate({ id: id, updates: payload });
     setOpen(false);
   };
 
@@ -124,86 +125,92 @@ export function EducationEditFormDialog({ id }: EducationDialogFormProps) {
               Update your education details below. Click save when done.
             </DialogDescription>
           </DialogHeader>
+          {isLoading ? (
+            <SpinnerLoading />
+          ) : (
+            <div className="grid gap-4 py-4">
+              {/* School Name */}
+              <div className="grid gap-2">
+                <Label htmlFor="school_name">School Name</Label>
+                <Input
+                  id="school_name"
+                  name="school_name"
+                  placeholder="e.g., Harvard University"
+                  value={form.school_name}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
 
-          <div className="grid gap-4 py-4">
-            {/* School Name */}
-            <div className="grid gap-2">
-              <Label htmlFor="school_name">School Name</Label>
-              <Input
-                id="school_name"
-                name="school_name"
-                placeholder="e.g., Harvard University"
-                value={form.school_name}
-                onChange={handleChange}
+              {/* Degree */}
+              <div className="grid gap-2">
+                <Label htmlFor="degree">Degree</Label>
+                <Input
+                  id="degree"
+                  name="degree"
+                  placeholder="e.g., Bachelor's"
+                  value={form.degree}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* Field of Study */}
+              <div className="grid gap-2">
+                <Label htmlFor="field_of_study">Field of Study</Label>
+                <Input
+                  id="field_of_study"
+                  name="field_of_study"
+                  placeholder="e.g., Computer Science"
+                  value={form.field_of_study}
+                  onChange={handleChange}
+                  required
+                />
+              </div>
+
+              {/* Score */}
+              <div className="grid gap-2">
+                <Label htmlFor="score">Score (optional)</Label>
+                <Input
+                  id="score"
+                  name="score"
+                  placeholder="e.g., 3.8 / 4.0"
+                  value={form.score}
+                  onChange={handleChange}
+                />
+              </div>
+
+              {/* Start Date */}
+              <DatePicker
+                label="Start Date"
+                name="start_date"
+                value={startDate}
+                onChange={setStartDate}
+                fromYear={1980}
                 required
               />
-            </div>
 
-            {/* Degree */}
-            <div className="grid gap-2">
-              <Label htmlFor="degree">Degree</Label>
-              <Input
-                id="degree"
-                name="degree"
-                placeholder="e.g., Bachelor's"
-                value={form.degree}
-                onChange={handleChange}
+              {/* End Date */}
+              <DatePicker
+                label="End Date"
+                name="end_date"
+                value={endDate}
+                onChange={setEndDate}
+                fromYear={1980}
+                toYear={new Date().getFullYear() + 10}
                 required
               />
+
+              {/* Description */}
+              <div className="grid gap-2">
+                <Label htmlFor="description">Description</Label>
+                <TipTapEdit
+                  value={form.description}
+                  onChange={handleRichTextChange}
+                />
+              </div>
             </div>
-
-            {/* Field of Study */}
-            <div className="grid gap-2">
-              <Label htmlFor="field_of_study">Field of Study</Label>
-              <Input
-                id="field_of_study"
-                name="field_of_study"
-                placeholder="e.g., Computer Science"
-                value={form.field_of_study}
-                onChange={handleChange}
-                required
-              />
-            </div>
-
-            {/* Score */}
-            <div className="grid gap-2">
-              <Label htmlFor="score">Score (optional)</Label>
-              <Input
-                id="score"
-                name="score"
-                placeholder="e.g., 3.8 / 4.0"
-                value={form.score}
-                onChange={handleChange}
-              />
-            </div>
-
-            {/* Start Date */}
-            <DatePicker
-              label="Start Date"
-              name="start_date"
-              value={startDate}
-              onChange={setStartDate}
-              fromYear={1980}
-              required
-            />
-
-            {/* End Date */}
-            <DatePicker
-              label="End Date"
-              name="end_date"
-              value={endDate}
-              onChange={setEndDate}
-              fromYear={1980}
-              toYear={new Date().getFullYear() + 10}
-              required
-            />
-
-            {/* Description */}
-            <div className="grid gap-2">
-              <Label htmlFor="description">Description</Label>
-              <TipTap value={form.description} onChange={handleRichTextChange} />
-            </div>
-          </div>
+          )}
 
           <DialogFooter>
             <DialogClose asChild>

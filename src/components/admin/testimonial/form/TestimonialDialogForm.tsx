@@ -39,6 +39,9 @@ export function TestimonialDialog() {
 
     // Manually include message from TipTap
     formData.append("message", testimonial.message);
+    formData.append("image_url", testimonial.image_url);
+    formData.append("client_position", testimonial.client_position);
+    formData.append("client_name", testimonial.client_name);
 
     mutate(formData, {
       onSuccess: () => {
@@ -103,7 +106,7 @@ export function TestimonialDialog() {
 
             {/* client_position Stack */}
             <div className="grid gap-2">
-              <Label htmlFor="client_position">client_position </Label>
+              <Label htmlFor="client_position">client position </Label>
               <Input
                 id="client_position"
                 name="client_position"

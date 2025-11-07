@@ -1,7 +1,7 @@
 import { deleteImage } from "@/services/deleteImageService";
 import { uploadImage } from "@/services/uploadImageServices";
 import { errorResponse, successResponse } from "@/utils/response";
-import { supabase } from "@/utils/server";
+import { createClient } from "@/utils/supabaseClient";
 
 interface PutHandlerProps<T> {
   table: string;
@@ -23,6 +23,8 @@ export async function putHandler<T extends Record<string, any>>({
   newImageFile,
 }: PutHandlerProps<T>) {
   try {
+    const supabase = await createClient();
+
     // 1️⃣ Check if record exists
     const selectColumns = imageColumn ? `id, ${imageColumn}` : "id";
 

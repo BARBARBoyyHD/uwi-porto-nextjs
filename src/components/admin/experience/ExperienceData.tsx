@@ -17,6 +17,7 @@ export default function ExperienceData() {
 
   const [optimisticExperience] = useOptimisticList<Experience>(data || []);
 
+  // 🌀 Loading State
   if (isLoading) {
     return (
       <div className="flex justify-center items-center min-h-[50vh]">
@@ -25,6 +26,16 @@ export default function ExperienceData() {
     );
   }
 
+  // 🧾 No Data Found State
+  if (!optimisticExperience?.length) {
+    return (
+      <div className="flex justify-center items-center min-h-[50vh]">
+        <p className="text-gray-600">No experience found.</p>
+      </div>
+    );
+  }
+
+  // ✅ Data Found
   return (
     <div className="flex flex-wrap gap-4 p-4">
       {optimisticExperience.map((experience, index) => (

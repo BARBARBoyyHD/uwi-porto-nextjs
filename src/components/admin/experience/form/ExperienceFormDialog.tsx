@@ -54,7 +54,6 @@ export function ExperienceFormDialog() {
       currently_working: isCurrentlyWorking,
     };
 
-    console.log(payload.start_date, payload.end_date);
     mutate(payload);
     setOpen(false);
   };

@@ -3,7 +3,7 @@ export type Educations = {
   school_name: string;
   degree: string;
   field_of_study: string;
-  score: string;
+  score: string; 
   description: string;
   start_date: string | Date | null;
   end_date: string | Date | null;

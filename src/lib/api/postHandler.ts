@@ -1,31 +1,35 @@
 import { errorResponse, successResponse } from "@/utils/response";
-import {supabase} from "@/utils/server";
-
+import { createClient } from "@/utils/supabaseClient";
 
 interface PostHandlerProps<T> {
-    table: string;
-    data: T;
+  table: string;
+  data: T;
 }
 
 export async function postHandler<T>({ table, data }: PostHandlerProps<T>) {
-    try {
-        const { data:postData, error } = await supabase.from(table).insert(data).select();
+  const supabase = await createClient();
 
-        if (error) throw new Error(error.message);
+  try {
+    const { data: postData, error } = await supabase
+      .from(table)
+      .insert(data)
+      .select();
 
-        return successResponse({
-            success: true,
-            status: 200,
-            message: "Success",
-            data:postData,
-        });
-    } catch (error: unknown) {
-        if (error instanceof Error) {
-            return errorResponse({
-                success: false,
-                status: 500,
-                message: error.message,
-            });
-        }
+    if (error) throw new Error(error.message);
+
+    return successResponse({
+      success: true,
+      status: 200,
+      message: "Success",
+      data: postData,
+    });
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      return errorResponse({
+        success: false,
+        status: 500,
+        message: error.message,
+      });
     }
+  }
 }

@@ -2,7 +2,10 @@ import { getSingleHandler } from "@/lib/api/getHandler";
 import { errorResponse } from "@/utils/response";
 import type { Params } from "@/types/params";
 import { NextRequest } from "next/server";
+import { AdminRole } from "@/utils/roles";
+
 export async function GET(_request: NextRequest, { params }: Params) {
+  const client = await AdminRole()
   const { id } = await params;
   if (!id) {
     return errorResponse({
@@ -14,8 +17,9 @@ export async function GET(_request: NextRequest, { params }: Params) {
   try {
     return await getSingleHandler({
       table: "educations",
-      column:"id,school_name,degree,description,field_of_study,start_date,end_date,created_at",
+      column:"id,school_name,degree,description,field_of_study,start_date,end_date,score,created_at",
       id: id,
+      client: client
     });
   } catch (error) {
     if (error instanceof Error) {

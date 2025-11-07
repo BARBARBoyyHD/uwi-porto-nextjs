@@ -31,13 +31,13 @@ export default function EducationsList() {
               {education.school_name}
             </h2>
             <p className="text-sm text-gray-600">
-              {education.degree} — {education.field_of_study}
+              {education.degree} — {education.field_of_study} - {education.score}
             </p>
-            <div className="text-sm" dangerouslySetInnerHTML={{__html:education.description}}/>
+            <div className="text-sm text-gray-500" dangerouslySetInnerHTML={{__html:education.description}}/>
 
             <div className="text-sm text-gray-500 mt-2">
               <span>{formatDate(education.start_date)}</span> -{" "}
-              <span>{formatDate(education.end_date)}</span>
+              <span>{formatDate(education.end_date)}</span> 
             </div>
           </div>
 

@@ -61,7 +61,15 @@ export function EducationsFormDialog() {
       start_date: startDate.toISOString().split("T")[0],
       end_date: endDate.toISOString().split("T")[0],
     };
-
+    setForm({
+      school_name: "",
+      degree: "",
+      field_of_study: "",
+      score: "",
+      description: "",
+      start_date: null,
+      end_date: null,
+    })
     mutate(payload);
     setOpen(false);
   };

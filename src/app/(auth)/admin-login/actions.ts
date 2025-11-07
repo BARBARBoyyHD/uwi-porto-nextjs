@@ -1,7 +1,6 @@
 'use server'
 
 import { createClient } from '@/utils/supabaseClient'
-import { redirect } from 'next/navigation'
 
 export async function login(formData: FormData) {
   const email = formData.get('email') as string
@@ -12,9 +11,9 @@ export async function login(formData: FormData) {
   const { error } = await supabase.auth.signInWithPassword({ email, password })
 
   if (error) {
-    console.error('Login failed:', error.message)
-    return
+    return { success: false, message: error.message }
   }
-
-  redirect('/admin/hero-section') // change to wherever you want after login
+  console.log(email,password,supabase)
+  // ✅ Jangan redirect di sini
+  return { success: true }
 }

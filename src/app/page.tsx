@@ -1,8 +1,12 @@
+import HomeComponents from "@/components/HomeComponents";
+import NavBar from "@/components/NavBar";
+
 
 export default function Home() {
   return (
    <main>
-    <h1>Hellow</h1>
+    <NavBar />
+    <HomeComponents/>
    </main>
   );
 }

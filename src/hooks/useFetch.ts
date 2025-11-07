@@ -1,5 +1,4 @@
 "use client";
-import { supabase } from "@/utils/server";
 import {
   useMutation,
   useQuery,
@@ -7,6 +6,7 @@ import {
   UseMutationResult,
   UseQueryResult,
 } from "@tanstack/react-query";
+import { toast } from "sonner";
 
 /**
  * Generic fetch hook to get multiple records
@@ -25,9 +25,24 @@ export function useGetData<T>(
         },
       });
       const data = await response.json();
-     
-      return data.data;
+      if (!response.ok || data?.success === false) {
+        throw new Error(data?.message || "Failed to fetch data");
+      }
+
+      // Handle empty array
+      if (!data.data || data.data.length === 0) {
+        throw new Error("No data found");
+      }
+
+      return data?.data ?? [];
     },
+    // 🚫 Jangan refetch otomatis
+    refetchOnWindowFocus: false,
+    refetchOnMount: false,
+    refetchOnReconnect: false,
+
+    // 🧠 Cache aktif selama 5 menit
+    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -38,7 +53,7 @@ export function useGetSingleData<T>(
   id: string,
   endpoint: string,
   queryKey: string,
-  option?:{enabled:boolean}
+  option?: { enabled: boolean }
 ): UseQueryResult<T, Error> {
   return useQuery({
     queryKey: [queryKey, id],
@@ -50,7 +65,7 @@ export function useGetSingleData<T>(
         },
       });
       const data = await response.json();
-     
+
       return data.data;
     },
     ...option,
@@ -73,7 +88,9 @@ export function usePostData<T>(
 
       const response = await fetch(endpoint, {
         method: "POST",
-        headers: isFormData ? undefined : { "Content-Type": "application/json" },
+        headers: isFormData
+          ? undefined
+          : { "Content-Type": "application/json" },
         body: isFormData ? data : JSON.stringify(data),
       });
 
@@ -86,8 +103,16 @@ export function usePostData<T>(
       return result.data;
     },
 
-    onSuccess: () => {
+    onSuccess: (data) => {
+      toast("✅ Added successfully!", {
+        duration: 2000,
+        className:
+          "bg-green-500 text-white font-semibold transition-all duration-300 ease-in-out",
+      });
       queryClient.invalidateQueries({ queryKey: [queryKey] });
+    },
+    onError: (error) => {
+      toast.error("❌ Failed to add data", { description: error.message });
     },
   });
 }
@@ -106,7 +131,9 @@ export function useUpdateData<T>(
       const isFormData = updates instanceof FormData;
       const response = await fetch(`${endpoint}/${id}`, {
         method: "PUT",
-        headers: isFormData ? undefined : { "Content-Type": "application/json" },
+        headers: isFormData
+          ? undefined
+          : { "Content-Type": "application/json" },
         body: isFormData ? updates : JSON.stringify(updates),
       });
 
@@ -118,7 +145,15 @@ export function useUpdateData<T>(
       return result.data;
     },
     onSuccess: () => {
+      toast("✏️ Updated successfully!", {
+        duration: 2000,
+        className:
+          "bg-green-500 text-white transition-all duration-300 ease-in-out",
+      });
       queryClient.invalidateQueries({ queryKey: [queryKey] });
+    },
+    onError: (error) => {
+      toast.error("❌ Failed to update data", { description: error.message });
     },
   });
 }
@@ -133,7 +168,7 @@ export function useDeleteData<T>(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (id:string) => {
+    mutationFn: async (id: string) => {
       const response = await fetch(`${endpoint}/${id}`, {
         method: "DELETE",
       });
@@ -145,8 +180,16 @@ export function useDeleteData<T>(
       return result.data;
     },
     onSuccess: (id) => {
+      toast("🗑️ Deleted successfully!", {
+        duration: 2000,
+        className:
+          "bg-green-500 text-white transition-all duration-300 ease-in-out",
+      });
       queryClient.invalidateQueries({ queryKey: [queryKey] });
       queryClient.removeQueries({ queryKey: [id] });
+    },
+    onError: (error) => {
+      toast.error("❌ Failed to delete data", { description: error.message });
     },
   });
 }
