@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail, Phone } from "lucide-react";
+import { FaGithub, FaInstagram, FaLinkedin, FaTiktok, FaXTwitter  } from "react-icons/fa6";
+import { IoMail } from "react-icons/io5";
 export default function ContactComp() {
   return (
     <motion.section
@@ -19,7 +20,7 @@ export default function ContactComp() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        Get In <span className="">Touch</span>
+        Get In <span className="text-[#FFD700]">Touch</span>
       </motion.h1>
 
       {/* Contact Container */}
@@ -27,7 +28,7 @@ export default function ContactComp() {
         {/* Profile Card (your info) */}
 
         {/* Contact Links */}
-        <div className="w-full md:w-1/2 flex flex-col items-start gap-6 bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-white/20 shadow-lg">
+        <div className="w-full md:w-1/2 flex flex-col items-start gap-6 bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-[#FFD700] shadow-lg">
           <h2 className="text-2xl font-semibold text-white mb-2">
             Let’s Connect 🚀
           </h2>
@@ -37,33 +38,45 @@ export default function ContactComp() {
           </p>
 
           <div className="flex flex-col gap-3 w-full">
-            <a
-              href="mailto:your@email.com"
+             <a
+              href="muhammadnahrulhayat98@gmail.com"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <Mail size={20} /> your@email.com
+              <IoMail size={20} /> muhammadnahrulhayat98@gmail.com
             </a>
-            <a
-              href="tel:+621234567890"
+             <a
+              href="https://www.instagram.com/notuwithelifter"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <Phone size={20} /> +62 123-4567-890
+              <FaInstagram size={20} /> notuwithelifter
             </a>
             <a
-              href="https://linkedin.com/in/yourlinkedin"
+              href="https://www.tiktok.com/@uwi_dev"
+              className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
+            >
+              <FaTiktok size={20} /> uwi_dev
+            </a>
+            <a
+              href="https://x.com/HdBoyy86138"
+              className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
+            >
+              <FaXTwitter size={20} /> uwi_dev
+            </a>
+            <a
+              href="https://www.linkedin.com/in/muhammad-nahrul-hayat/"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <Linkedin size={20} /> linkedin.com/in/yourlinkedin
+              <FaLinkedin size={20} /> https://www.linkedin.com/in/muhammad-nahrul-hayat/
             </a>
             <a
-              href="https://github.com/yourgithub"
+              href="https://github.com/BARBARBoyyHD"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <Github size={20} /> github.com/yourgithub
+              <FaGithub size={20} /> https://github.com/BARBARBoyyHD
             </a>
           </div>
         </div>

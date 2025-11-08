@@ -26,7 +26,7 @@ export default function ProjectsAllComp() {
           transition={{ duration: 0.6 }}
           className="text-4xl md:text-5xl font-semibold mb-14"
         >
-          My <span className="">Projects</span>
+          My <span className="text-[#FFD700]">Projects</span>
         </motion.h1>
 
         {/* ✅ Projects Container — now using flex-wrap */}
@@ -38,7 +38,7 @@ export default function ProjectsAllComp() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col rounded-2xl bg-slate-950/20 backdrop-blur-sm border border-slate-200 overflow-hidden shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 w-full sm:w-[45%] lg:w-[30%]"
+              className="flex flex-col rounded-2xl bg-slate-950/20 backdrop-blur-sm border border-[#FFD700] overflow-hidden shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 w-full sm:w-[45%] lg:w-[30%]"
             >
               {/* ✅ Image Section */}
               <div className="relative w-full h-52">

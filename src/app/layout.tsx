@@ -30,19 +30,12 @@ export const metadata: Metadata = {
   ],
   authors: [{ name: "Muhammad Nahrul Hayat" }],
   openGraph: {
-    title: "Muhammad Nahrul Hayat | Fullstack Software Engineer Portfolio",
+    title: "Nahrul's Portofolio",
     description:
       "Explore the portfolio of Muhammad Nahrul Hayat — a passionate Software Engineer specializing in scalable, user-friendly web applications using React, Node.js, and PostgreSQL.",
     url: "https://your-portfolio-domain.com",
     siteName: "Nahrul's Portfolio",
-    images: [
-      {
-        url: "/og-image.png", // replace with your real image path
-        width: 1200,
-        height: 630,
-        alt: "Muhammad Nahrul Hayat Portfolio",
-      },
-    ],
+   
     locale: "en_US",
     type: "website",
   },

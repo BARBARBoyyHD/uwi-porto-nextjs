@@ -16,7 +16,7 @@ export default function ExperiencesComp() {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.8 }}
-      className="min-h-[70vh] w-full flex flex-col items-center justify-center p-8 md:px-14 md:py-24"
+      className="min-h-[70vh] w-full flex flex-col items-center justify-center p-8 md:px-14 md:py-24 overflow-x-hidden"
     >
       <motion.h1
         className="text-4xl font-semibold text-white md:text-6xl mb-12"
@@ -24,7 +24,7 @@ export default function ExperiencesComp() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: 'easeOut' }}
       >
-        My <span className="">Experiences</span>
+        My <span className="text-[#FFD700]">Experiences</span>
       </motion.h1>
 
       <div className="relative w-full max-w-4xl">

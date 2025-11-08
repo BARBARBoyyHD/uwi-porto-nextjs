@@ -34,7 +34,7 @@ export function ProjectsDetailComp({ id }: { id: string }) {
       <DialogTrigger asChild>
         <Button
           variant="outline"
-          className="bg-slate-950/20 border border-slate-200 text-slate-200 hover:bg-gray-700 hover:text-white transition-all"
+          className="bg-slate-950/20 border border-[#FFD700] text-slate-200 hover:bg-gray-700 hover:text-white transition-all"
         >
           View Details
         </Button>
@@ -53,7 +53,7 @@ export function ProjectsDetailComp({ id }: { id: string }) {
           >
             {/* Header */}
             <DialogHeader className="border-b border-slate-200 pb-2">
-              <DialogTitle className="text-2xl font-semibold text-indigo-400">
+              <DialogTitle className="text-2xl font-semibold text-[#FFD700]">
                 {project.project_name}
               </DialogTitle>
               <DialogDescription className="text-gray-400">
@@ -93,7 +93,7 @@ export function ProjectsDetailComp({ id }: { id: string }) {
                   <Link
                     href={project.live_demo_url}
                     target="_blank"
-                    className="px-4 py-2 text-sm font-medium bg-indigo-600 hover:bg-indigo-500 rounded-md transition"
+                    className="px-4 py-2 text-sm font-medium bg-[#b89d09] rounded-md transition"
                   >
                     Live Demo
                   </Link>

@@ -2,6 +2,7 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -18,12 +19,15 @@ export default function NavBarMobile({ navItem }: NavBarMobileProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl rounded-2xl border border-white/80 bg-white/10 backdrop-blur-xl  transition-all duration-500 px-6 py-3">
+    <nav className="fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl rounded-2xl border border-white/80 bg-black/10 backdrop-blur-xl  transition-all duration-500 px-6 py-3">
       <div className="flex justify-between items-center w-full">
         {/* Logo */}
-        <h1 className="text-white text-xl font-semibold tracking-wide">
-          Hello
-        </h1>
+        <Image
+          src={"icon0.svg"}
+          alt="Muhammad Nahrul Hayat"
+          width={50}
+          height={50}
+        />
 
         {/* Hamburger Button */}
         <button

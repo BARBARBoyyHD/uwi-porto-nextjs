@@ -10,6 +10,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { useIsMobile } from "@/hooks/use-mobile";
 import NavBarMobile from "./NavBarMobile";
+import Image from "next/image";
 
 const navItem = [
   { name: "home", href: "/" },
@@ -41,7 +42,7 @@ export default function Navbar() {
       ref={navRef}
       onMouseMove={handleMouseMove}
       className="group fixed top-4 left-1/2 -translate-x-1/2 z-50 w-[90%] max-w-5xl 
-                 rounded-4xl border border-white/80 bg-white/10 backdrop-blur-xl 
+                 rounded-4xl border border-[#FFD700] bg-black/10 backdrop-blur-xl 
                  shadow-[0_8px_32px_rgba(255,255,255,0.1)] transition-all duration-500 
                  px-6 py-3 overflow-hidden "
     >
@@ -55,9 +56,12 @@ export default function Navbar() {
 
       <div className="flex justify-between items-center w-full relative z-10">
         {/* Left side (Logo / Title) */}
-        <h1 className="text-white text-xl font-semibold tracking-wide">
-          Hello
-        </h1>
+        <Image
+          src={"icon0.svg"}
+          alt="Muhammad Nahrul Hayat"
+          width={50}
+          height={50}
+        />
 
         {/* Right side (Navigation) */}
         <NavigationMenu>

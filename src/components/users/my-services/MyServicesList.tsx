@@ -65,7 +65,7 @@ export default function MyServicesList() {
                   <SpotlightCard
                     key={index}
                     className="border border-slate-200"
-                    spotlightColor="rgba(0, 151, 42, 184)"
+                    spotlightColor="rgba(255, 215, 0, 1)"
                   >
                     <div className="flex flex-col justify-between w-70 h-[380px] rounded-xl p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-indigo-500/20 ">
                       {/* Title */}
@@ -98,7 +98,7 @@ export default function MyServicesList() {
                       {/* ✅ Order Now Button */}
                       <Link
                         href="/contact"
-                        className="mt-auto inline-block text-center bg-indigo-600 hover:bg-indigo-700 transition-colors text-white font-medium py-2 rounded-[10px] shadow-md"
+                        className="mt-auto inline-block text-center bg-[#FFD700] transition-colors text-shadow-slate-300 font-bold py-2 rounded-[10px] shadow-md"
                       >
                         Order Now
                       </Link>

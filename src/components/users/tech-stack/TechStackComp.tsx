@@ -14,7 +14,7 @@ export function TechStackComp() {
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          My <span className="">Tech Stack</span>
+          My <span className="text-[#FFD700]">Tech Stack</span>
         </motion.h1>
         <p className="text-gray-400 text-sm md:text-base">
           Making Apps With Modern Technologies

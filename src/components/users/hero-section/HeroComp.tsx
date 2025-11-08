@@ -14,9 +14,8 @@ export default function HeroComp() {
 
   const hero = optimisticHero?.[0] ?? null;
 
-
   return (
-    <section className=" w-full min-h-screen flex flex-col items-center justify-center pt-24">
+    <section className="w-full min-h-screen flex flex-col items-center justify-center pt-5 md:pt-6 overflow-x-hidden">
       {/* === Hero Content === */}
       {hero && (
         <motion.div className="flex flex-col items-center text-center space-y-6">
@@ -59,14 +58,15 @@ export default function HeroComp() {
               >
                 Hello, I am{" "}
               </motion.h1>
-              <GradientText
-                colors={["#40ffaa", "#4079ff", "#40ffaa", "#4079ff", "#40ffaa"]}
-                animationSpeed={3}
-                showBorder={false}
-                className="md:text-5xl text-2xl"
+
+              <motion.h1
+                initial={{ y: -50, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                className="text-[#FFD700] text-4xl md:text-5xl tracking-tight drop-shadow-lg font-bold"
               >
                 {hero.full_name || "Your Name Here"}
-              </GradientText>
+              </motion.h1>
             </motion.div>
 
             <motion.p
