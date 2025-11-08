@@ -2,13 +2,8 @@ import { getSingleHandler } from "@/lib/api/getHandler";
 import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 import { AdminRole } from "@/utils/roles";
-interface Params {
-  params: {
-    id: string;
-  };
-}
 
-export async function GET(_request: NextRequest, { params }: Params) {
+export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
   const client = await AdminRole()
   const { id } = params;
   if (!id) {
