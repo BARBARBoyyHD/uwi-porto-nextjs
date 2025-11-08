@@ -1,10 +1,15 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
 import { NextRequest } from "next/server";
-import type { Params } from "@/types/params";
 import { errorResponse } from "@/utils/response";
 import { AdminRole } from "@/utils/roles";
+
+interface Params {
+  params: {
+    id: string;
+  };
+}
 export async function GET(_request: NextRequest, { params }: Params) {
-  const { id } = await params;
+  const { id } =  params;
   const client = await AdminRole();
 
   if (!id) {
