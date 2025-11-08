@@ -1,9 +1,8 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
-import type { Params } from "@/types/params";
 import { supabase } from "@/utils/server";
 import { NextRequest } from "next/server";
 
-export async function GET( __request: NextRequest,{ params }: Params) {
+export async function GET( __request: NextRequest,{ params }: { params: Promise<{ id: string }> }) {
   const { id } =  await params;
   return getSingleHandler({
     table: "projects",

@@ -5,10 +5,10 @@ import { AdminRole } from "@/utils/roles";
 
 export async function GET(
   _request: NextRequest,
-  { params }: { params: { id: string } }
+   { params }: { params: Promise<{ id: string }> } 
 ) {
   const client = await AdminRole();
-  const { id } = params;
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,

@@ -3,9 +3,12 @@ import { errorResponse } from "@/utils/response";
 import { NextRequest } from "next/server";
 import { AdminRole } from "@/utils/roles";
 
-export async function GET(_request: NextRequest, { params }: { params: { id: string } }) {
-  const client = await AdminRole()
-  const { id } = params;
+export async function GET(
+  _request: NextRequest,
+  { params }: { params: Promise<{ id: string }> }
+) {
+  const client = await AdminRole();
+  const { id } = await params;
   if (!id) {
     return errorResponse({
       success: false,
@@ -16,9 +19,10 @@ export async function GET(_request: NextRequest, { params }: { params: { id: str
   try {
     return await getSingleHandler({
       table: "experiences",
-      column: "id,company_name,position,description,start_date,end_date,currently_working,created_at",
+      column:
+        "id,company_name,position,description,start_date,end_date,currently_working,created_at",
       id,
-      client:client
+      client: client,
     });
   } catch (error) {
     if (error instanceof Error) {

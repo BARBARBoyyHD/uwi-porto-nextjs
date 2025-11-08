@@ -1,7 +1,6 @@
 import { getSingleHandler } from "@/lib/api/getHandler";
 import { supabase } from "@/utils/server";
-import type { Params } from "@/types/params";
-export async function GET({ params }: Params) {
+export async function GET({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   return getSingleHandler({
     table: "certificates",
