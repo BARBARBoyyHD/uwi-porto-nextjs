@@ -1,6 +1,8 @@
+import Aurora from "@/components/Aurora";
+import { SkeletonComp } from "@/components/skeleton/SkeletonComp";
 import { TanstackProvider } from "@/utils/ReactQueryProviders";
-import NavBar from "@/components/NavBar";
-import Aurora from "@/components/Aurora"; // ✅ adjust path if needed
+import { Suspense } from "react";
+import { DynamicTitle } from "./metadata";
 
 export default function UserLayout({
   children,
@@ -10,8 +12,7 @@ export default function UserLayout({
   return (
     <TanstackProvider>
       {/* Global Navbar */}
-      <NavBar />
-
+      <DynamicTitle />
       {/* Background Aurora */}
       <div className="fixed inset-0 -z-10">
         <Aurora
@@ -23,7 +24,7 @@ export default function UserLayout({
       </div>
 
       {/* Page content */}
-      {children}
+      <Suspense fallback={<SkeletonComp />}>{children}</Suspense>
     </TanstackProvider>
   );
 }

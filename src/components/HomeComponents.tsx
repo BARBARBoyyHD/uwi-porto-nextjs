@@ -8,8 +8,12 @@ import ProjectsComp from "./users/projects/ProjectsComp";
 import { TechStackComp } from "./users/tech-stack/TechStackComp";
 import ContactComp from "./users/contact/ContactComp";
 import TestimonialComp from "./users/testimonial/TestimonialComp";
+import { useLoader } from "@/hooks/useLoader";
+import Loader from "./loader/Loader";
 
 export default function HomeComponents() {
+  const isLoading = useLoader();
+
   return (
     <section>
       <div className="fixed inset-0 -z-10">
@@ -20,14 +24,25 @@ export default function HomeComponents() {
           speed={1}
         />
       </div>
-      <HeroComp />
-      <JobRoleComp />
-      <TechStackComp />
-      <ProjectsComp />
-      <EducationsComp />
-      <ExperiencesComp />
-      <TestimonialComp />
-      <ContactComp />
+      {isLoading ? (
+        <>
+          <div className="w-full min-h-screen flex justify-center items-center">
+            <Loader />
+          </div>
+        </>
+      ) : (
+        <>
+          {" "}
+          <HeroComp />
+          <JobRoleComp />
+          <TechStackComp />
+          <ProjectsComp />
+          <EducationsComp />
+          <ExperiencesComp />
+          <TestimonialComp />
+          <ContactComp />
+        </>
+      )}
     </section>
   );
 }

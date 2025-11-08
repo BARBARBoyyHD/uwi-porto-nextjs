@@ -11,7 +11,8 @@ import { toast } from "sonner";
 import { SpinnerLoading } from "../SpinnerLoading";
 
 export default function AdminLoginPage() {
-  const [isPending, startTransition] = useTransition();
+  const [isPending] = useTransition();
+
   const router = useRouter();
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -20,12 +21,12 @@ export default function AdminLoginPage() {
 
     const result = await login(formData);
     if (result.success === true) {
-      toast("Login successful!",{
-       style: { background: "#22c55e", color: "white" },
+      toast("Login successful!", {
+        style: { background: "#22c55e", color: "white" },
       });
       router.push("/admin/hero-section");
     } else {
-      toast("Wrong Email and Password",{
+      toast("Wrong Email and Password", {
         style: { background: "red", color: "white" },
       });
     }

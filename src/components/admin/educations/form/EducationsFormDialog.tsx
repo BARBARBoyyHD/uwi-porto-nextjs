@@ -69,7 +69,7 @@ export function EducationsFormDialog() {
       description: "",
       start_date: null,
       end_date: null,
-    })
+    });
     mutate(payload);
     setOpen(false);
   };
@@ -87,8 +87,9 @@ export function EducationsFormDialog() {
           <DialogHeader>
             <DialogTitle>Add Education</DialogTitle>
             <DialogDescription>
-              Fill out your education details below. Click save when you're
-              done.
+              {
+                " Fill out your education details below. Click save when you're done."
+              }
             </DialogDescription>
           </DialogHeader>
 

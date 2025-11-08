@@ -36,10 +36,10 @@ export default function ProjectsComp() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               viewport={{ once: true }}
-              className="flex flex-col rounded-2xl bg-black backdrop-blur-sm border border-slate-100 overflow-hidden shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 w-full sm:w-[45%] lg:w-[30%] max-w-sm"
+              className="flex flex-col rounded-2xl bg-black backdrop-blur-sm border border-slate-100 overflow-hidden shadow-lg hover:shadow-indigo-500/20 hover:-translate-y-2 transition-all duration-300 w-full sm:w-[45%] lg:w-[30%] max-w-sm h-[300px]"
             >
               {/* ✅ Image Section */}
-              <div className="relative w-full h-52">
+              <div className="relative w-full h-40">
                 {project.image_url ? (
                   <Image
                     src={project.image_url}
@@ -55,8 +55,8 @@ export default function ProjectsComp() {
               </div>
 
               {/* ✅ Content Section */}
-              <div className="p-6 flex flex-col flex-grow text-left">
-                <h2 className="text-xl font-semibold mb-2 text-white">
+              <div className="p-4 flex flex-col flex-grow text-left">
+                <h2 className="text-xl font-semibold mb-1 text-white">
                   {project.project_name}
                 </h2>
 
@@ -65,11 +65,11 @@ export default function ProjectsComp() {
                     dangerouslySetInnerHTML={{
                       __html: project.description,
                     }}
-                    className="text-sm text-gray-300 mb-4 line-clamp-3"
+                    className="text-sm text-gray-300 mb-2 line-clamp-3"
                   />
                 )}
                 {project.tech && (
-                  <div className="flex flex-wrap gap-2 mb-4">
+                  <div className="flex flex-wrap gap-2 mb-2">
                     {project.tech.split(" ").map((tech, i) => (
                       <span
                         key={i}

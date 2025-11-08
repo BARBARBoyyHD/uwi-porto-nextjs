@@ -33,52 +33,25 @@ export default function CertificateComp() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: index * 0.1 }}
             viewport={{ once: true }}
-            className="relative group bg-white/5 border border-white/20 
-                       backdrop-blur-xl rounded-2xl overflow-hidden 
+            className="relative group rounded-2xl overflow-hidden 
                        hover:shadow-[0_0_25px_rgba(255,255,255,0.2)] 
                        hover:-translate-y-2 transition-all duration-500"
           >
-            {/* Certificate Image */}
-            <div className="relative w-full h-56 overflow-hidden">
-              <Image
-                src={certificate.image_url}
-                alt={certificate.cert_name}
-                fill
-                className="object-cover group-hover:scale-110 transition-transform duration-700"
-              />
-            </div>
-
-            {/* Certificate Info */}
-            <div className="p-5 flex flex-col justify-between h-[220px]">
-              <div>
-                <h3 className="text-xl font-semibold mb-2 text-indigo-400">
-                  {certificate.cert_name}
-                </h3>
-                <p className="text-gray-300 text-sm mb-1">
-                  <span className="font-medium">Issuer:</span>{" "}
-                  {certificate.issuer}
-                </p>
-                <p className="text-gray-400 text-xs mb-2">
-                  Issued: {certificate.issuer_date}{" "}
-                  {certificate.expiration_date && (
-                    <>| Exp: {certificate.expiration_date}</>
-                  )}
-                </p>
-              
+            <Link
+              href={certificate.cert_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div className="relative w-full h-56 md:h-64 overflow-hidden rounded-2xl">
+                <Image
+                  src={certificate.image_url}
+                  alt={certificate.cert_name}
+                  fill
+                  className="object-cover group-hover:scale-110 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-colors duration-500" />
               </div>
-
-              {/* Button */}
-              <Link
-                href={certificate.cert_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="mt-4 text-center text-sm font-medium text-white 
-                           border border-white/30 rounded-lg py-2 px-4 
-                           hover:bg-white hover:text-black transition-all duration-300"
-              >
-                View Certificate
-              </Link>
-            </div>
+            </Link>
           </motion.div>
         ))}
       </div>

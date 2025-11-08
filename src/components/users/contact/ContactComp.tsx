@@ -1,14 +1,8 @@
 "use client";
 
-import ProfileCard from "@/components/ProfileCard";
-import { useGetData } from "@/hooks/useFetch";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
-import type { HeroType } from "@/types/heroType";
 import { motion } from "framer-motion";
 import { Github, Linkedin, Mail, Phone } from "lucide-react";
 export default function ContactComp() {
-  const { data } = useGetData<HeroType>("/api/v2/hero-section", "hero-section");
-  const [optimisticContact] = useOptimisticList(data || []);
   return (
     <motion.section
       id="contact"
@@ -31,22 +25,7 @@ export default function ContactComp() {
       {/* Contact Container */}
       <div className="flex flex-col md:flex-row items-center justify-center gap-10 w-full max-w-5xl">
         {/* Profile Card (your info) */}
-        {optimisticContact.map((hero, index) => (
-          <ProfileCard
-            key={index}
-            name={hero.full_name}
-            title="Software Engineer Full Stack developer"
-            handle={"Nahrul"}
-            status={"Online"}
-            contactText={"Contact Me"}
-            avatarUrl={hero.image_url}
-            showUserInfo={true}
-            enableTilt={true}
-            enableMobileTilt={false}
-            onContactClick={() => console.log("Contact clicked")}
-          />
-        ))}
-       
+
         {/* Contact Links */}
         <div className="w-full md:w-1/2 flex flex-col items-start gap-6 bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-white/20 shadow-lg">
           <h2 className="text-2xl font-semibold text-white mb-2">

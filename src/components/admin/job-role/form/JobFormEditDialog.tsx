@@ -70,7 +70,7 @@ export function JobFormEditDialog({ id }: JobFormDialogProps) {
           <DialogHeader>
             <DialogTitle>Add Job Role</DialogTitle>
             <DialogDescription>
-              Fill out your Job Role details below. Click save when you're done.
+              {"Fill out your Job Role details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

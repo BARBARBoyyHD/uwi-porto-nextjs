@@ -1,11 +1,12 @@
 "use client";
 
-import { Geist, Geist_Mono } from "next/font/google";
-import { TanstackProvider } from "@/utils/ReactQueryProviders";
-import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { AppSidebar } from "@/components/app-sidebar";
+import { SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
+import { TanstackProvider } from "@/utils/ReactQueryProviders";
+import { Geist, Geist_Mono } from "next/font/google";
 import { Suspense } from "react";
-import Loading from "./loading";
+
+import Loader from "@/components/loader/Loader";
 import { Toaster } from "@/components/ui/sonner";
 import "../globals.css";
 
@@ -31,7 +32,7 @@ export default function AdminLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased w-full dark:bg-background dark:text-primary-foreground`}
       >
         <SidebarTrigger />
-        <Suspense fallback={<Loading />}>
+        <Suspense fallback={<Loader />}>
           <TanstackProvider>{children}</TanstackProvider>
           <Toaster richColors position="bottom-right" />
         </Suspense>

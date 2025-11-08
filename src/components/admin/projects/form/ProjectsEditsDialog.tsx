@@ -17,6 +17,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
 import type { Projects, ProjectsFrom } from "@/types/projects";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
@@ -112,7 +113,7 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (
-          <SpinnerLoading/>
+          <SpinnerLoading />
         ) : (
           <form onSubmit={handleSubmit}>
             <div className="grid gap-4 py-4">
@@ -176,8 +177,10 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
               <div className="grid gap-2">
                 <Label htmlFor="image">Project Image</Label>
                 {data?.image_url && (
-                  <img
+                  <Image
                     src={data.image_url}
+                    width={500}
+                    height={500}
                     alt="Current project"
                     className="w-full h-40 object-cover rounded-lg border mb-2"
                   />

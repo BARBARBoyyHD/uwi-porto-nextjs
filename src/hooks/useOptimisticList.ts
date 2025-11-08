@@ -5,9 +5,9 @@ import { useOptimistic } from "react";
 type OptimisticAction<T> =
   | { type: "add"; item: T }
   | { type: "update"; item: T; matchBy: keyof T }
-  | { type: "delete"; id: any; matchBy: keyof T };
+  | { type: "delete"; id: string; matchBy: keyof T };
 
-export function useOptimisticList<T extends Record<string, any>>(initialData: T[]) {
+export function useOptimisticList<T extends Record<string, unknown>>(initialData: T[]) {
   return useOptimistic(
     initialData,
     (currentList: T[], action: OptimisticAction<T>): T[] => {

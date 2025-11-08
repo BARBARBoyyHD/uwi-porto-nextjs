@@ -61,7 +61,7 @@ export function ProjectsDialog() {
           <DialogHeader>
             <DialogTitle>Add Project</DialogTitle>
             <DialogDescription>
-              Fill out your project details below. Click save when you're done.
+              {"Fill out your project details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

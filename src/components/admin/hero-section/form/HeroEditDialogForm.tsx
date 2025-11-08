@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useGetSingleData, useUpdateData } from "@/hooks/useFetch";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaEdit } from "react-icons/fa";
 
@@ -148,7 +149,9 @@ export function HeroEditDialogForm({ id }: HeroEditDialogFormProps) {
                 {data?.image_url && (
                   <div className="flex flex-col items-start mt-2">
                     <p className="text-sm text-zinc-400 mb-1">Current Image:</p>
-                    <img
+                    <Image
+                      width={28}
+                      height={28}
                       src={data.image_url}
                       alt="Current Hero"
                       className="w-28 h-28 object-cover rounded-lg border border-zinc-700"

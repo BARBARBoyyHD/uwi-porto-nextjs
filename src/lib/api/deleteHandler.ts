@@ -22,10 +22,11 @@ export async function deleteHandler({
       message: "Missing required fields: id or table",
     });
   }
+
   const supabase = await createClient();
 
   try {
-    // 1️⃣ Dynamically select columns
+    // 1️⃣ Select dynamic columns
     const selectColumns = imageColumn ? `id, ${imageColumn}` : "id";
 
     const { data: findData, error: findError } = await supabase
@@ -42,20 +43,25 @@ export async function deleteHandler({
       });
     }
 
-    if (
-      bucket &&
-      imageColumn &&
-      (findData as Record<string, any>)[imageColumn]
-    ) {
-      const imageUrl = (findData as Record<string, any>)[imageColumn] as string;
-      try {
-        await deleteImage({ filePath: imageUrl, bucket });
-      } catch (imgError) {
-        console.warn("⚠️ Image deletion failed:", imgError);
+    // 2️⃣ Delete image from bucket if applicable
+    if (bucket && imageColumn) {
+      if (typeof findData === "object" && findData !== null) {
+        const record = findData as Record<string, unknown>;
+        const imageValue = record[imageColumn];
+
+        if (typeof imageValue === "string" && imageValue.trim() !== "") {
+          try {
+            await deleteImage({ filePath: imageValue, bucket });
+          } catch (imgError) {
+            console.warn("⚠️ Image deletion failed:", imgError);
+          }
+        }
+      } else {
+        console.warn("⚠️ Unexpected data type from Supabase:", findData);
       }
     }
 
-    // 3️⃣ Delete record
+    // 3️⃣ Delete record from table
     const { error: deleteError } = await supabase
       .from(table)
       .delete()

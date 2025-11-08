@@ -1,9 +1,10 @@
+import Navbar from "@/components/NavBar";
 import ProjectsAllComp from "@/components/users/projects/ProjectsAllComp";
-import React from "react";
 
 export default function ProjectsPage() {
   return (
     <section>
+      <Navbar />
       <ProjectsAllComp />
     </section>
   );

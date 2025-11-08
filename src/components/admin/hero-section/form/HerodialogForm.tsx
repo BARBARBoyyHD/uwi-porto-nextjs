@@ -39,7 +39,7 @@ export function HeroSectionDialog() {
           <DialogHeader>
             <DialogTitle>Add Hero Section</DialogTitle>
             <DialogDescription>
-              Fill out your hero section details below. Click save when you're done.
+             {" Fill out your hero section details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

@@ -3,17 +3,17 @@ import { uploadImage } from "@/services/uploadImageServices";
 import { errorResponse, successResponse } from "@/utils/response";
 import { createClient } from "@/utils/supabaseClient";
 
-interface PutHandlerProps<T> {
+interface PutHandlerProps<T extends Record<string, unknown>> {
   table: string;
   id: string;
   message: string;
-  imageColumn?: string; 
-  bucket?: string; 
-  data: T; 
-  newImageFile?: File; 
+  imageColumn?: string;
+  bucket?: string;
+  data: T;
+  newImageFile?: File;
 }
 
-export async function putHandler<T extends Record<string, any>>({
+export async function putHandler<T extends Record<string, unknown>>({
   table,
   id,
   bucket,
@@ -42,7 +42,8 @@ export async function putHandler<T extends Record<string, any>>({
       });
     }
 
-    const updatedPayload: Record<string, any> = { ...data };
+    // ✅ Use Record<string, unknown> instead of any
+    const updatedPayload: Record<string, unknown> = { ...data };
 
     // 2️⃣ Handle image upload if bucket + imageColumn + newImageFile exist
     if (bucket && imageColumn && newImageFile) {
@@ -54,10 +55,17 @@ export async function putHandler<T extends Record<string, any>>({
         });
 
         // 2b. Delete old image if exists
-        const oldImageUrl = (findData as Record<string, any>)[imageColumn];
-        if (oldImageUrl) {
-          await deleteImage({ filePath: oldImageUrl, bucket });
-          console.log("🗑️ Deleted old image:", oldImageUrl);
+
+        if (typeof findData === "object" && findData !== null) {
+          const record = findData as Record<string, unknown>;
+          const oldImageUrl = record[imageColumn];
+
+          if (typeof oldImageUrl === "string" && oldImageUrl.trim() !== "") {
+            await deleteImage({ filePath: oldImageUrl, bucket });
+            console.log("🗑️ Deleted old image:", oldImageUrl);
+          }
+        } else {
+          console.warn("⚠️ Unexpected data type from Supabase:", findData);
         }
 
         // 2c. Set new image URL in update payload

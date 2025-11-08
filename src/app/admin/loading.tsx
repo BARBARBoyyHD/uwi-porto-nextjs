@@ -1,7 +1,5 @@
-import { SpinnerLoading } from '@/components/SpinnerLoading'
-import React from 'react'
-
+import { Loader } from "lucide-react";
 
 export default function Loading() {
-  return <SpinnerLoading />
+  return <Loader />;
 }

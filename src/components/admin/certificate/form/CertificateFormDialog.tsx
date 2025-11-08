@@ -63,8 +63,7 @@ export function CertificateFormDialog() {
           <DialogHeader>
             <DialogTitle>Add Certificate</DialogTitle>
             <DialogDescription>
-              Fill out your certificate details below. Click save when you're
-              done.
+             {" Fill out your certificate details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

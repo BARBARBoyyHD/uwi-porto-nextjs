@@ -112,7 +112,7 @@ export function ExperienceFormEditDialog({ id }: ExperienceDialogFormProps) {
         <DialogHeader>
           <DialogTitle>Edit Experience</DialogTitle>
           <DialogDescription>
-            Update your experience details below. Click save when you're done.
+            {"Update your experience details below. Click save when you're done."}
           </DialogDescription>
         </DialogHeader>
         {isLoading ? (

@@ -61,6 +61,8 @@ export default function HeroData() {
 
               {hero.image_url && (
                 <Image
+                  width={400}
+                  height={400}
                   src={hero.image_url}
                   alt={hero.full_name || "Hero image"}
                   className="w-full h-40 object-cover rounded-xl mt-2"

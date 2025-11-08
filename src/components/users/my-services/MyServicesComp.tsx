@@ -1,17 +1,8 @@
 "use client";
 
-import ProfileCard from "@/components/ProfileCard";
-import { useGetData } from "@/hooks/useFetch";
-import { useOptimisticList } from "@/hooks/useOptimisticList";
-import type { HeroType } from "@/types/heroType";
 import { motion } from "framer-motion";
 
 export default function MyServicesComp() {
-  const { data: heroSection } = useGetData<HeroType>(
-    "/api/v2/hero-section",
-    "heroSection"
-  );
-  const [optimisticHero] = useOptimisticList(heroSection || []);
 
   return (
     <section
@@ -33,9 +24,7 @@ export default function MyServicesComp() {
         <p className="text-gray-300 max-w-lg text-base md:text-lg mb-8">
           I specialize in building fast, scalable, and beautiful digital
           experiences using <strong>React</strong>, <strong>Next.js</strong>,
-          and <strong>Node.js Express</strong>. Whether it's a sleek landing page or a
-          full-stack web application I craft solutions that elevate your
-          brand.
+          and <strong>Node.js Express</strong>. {"Whether it's a sleek landing page or a full-stack web application I craft solutions that elevate your brand."}
         </p>
 
         <a
@@ -52,24 +41,7 @@ export default function MyServicesComp() {
         animate={{ opacity: 1, x: 0 }}
         transition={{ duration: 0.6 }}
         className="w-full lg:w-1/2 flex justify-center"
-      >
-        {optimisticHero.map((hero, index) => (
-          <ProfileCard
-            key={index}
-            name={hero.full_name}
-            title="Full Stack Developer"
-            handle="@Nahrul"
-            status="Available for Work"
-            contactText="Let's Connect"
-            avatarUrl={hero.image_url}
-            showUserInfo={true}
-            enableTilt={true}
-            enableMobileTilt={false}
-            onContactClick={() => console.log("Contact clicked")}
-            className="w-[300px] md:w-[340px] h-auto"
-          />
-        ))}
-      </motion.div>
+      ></motion.div>
     </section>
   );
 }

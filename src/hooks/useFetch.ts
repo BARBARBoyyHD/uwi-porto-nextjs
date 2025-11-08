@@ -82,7 +82,7 @@ export function usePostData<T>(
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: any) => {
+    mutationFn: async (data: T) => {
       // Detect if it's FormData (for file upload)
       const isFormData = data instanceof FormData;
 
@@ -103,7 +103,7 @@ export function usePostData<T>(
       return result.data;
     },
 
-    onSuccess: (data) => {
+    onSuccess: () => {
       toast("✅ Added successfully!", {
         duration: 2000,
         className:
@@ -161,7 +161,7 @@ export function useUpdateData<T>(
 /**
  * Generic delete hook
  */
-export function useDeleteData<T>(
+export function useDeleteData(
   endpoint: string,
   queryKey: string
 ): UseMutationResult<void, Error, string> {

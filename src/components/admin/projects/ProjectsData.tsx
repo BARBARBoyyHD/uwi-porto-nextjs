@@ -4,9 +4,10 @@ import { useGetData } from "@/hooks/useFetch";
 import type { Projects } from "@/types/projects";
 import { DeleteComp } from "../../deleteComp";
 import { ProjectsEditDialog } from "./form/ProjectsEditsDialog";
+import Image from "next/image";
 
 export default function ProjectsData() {
-  const { data, isPending, isLoading } = useGetData<Projects>(
+  const { data, isLoading } = useGetData<Projects>(
     "/api/v1/admin/projects/get",
     "projects"
   );
@@ -30,14 +31,16 @@ export default function ProjectsData() {
   return (
     <div className="flex flex-wrap justify-center gap-8 p-8">
       {data?.length &&
-        data.map((project: any) => (
+        data.map((project) => (
           <div
             key={project.id}
             className="flex flex-col justify-between w-72 bg-white dark:bg-neutral-900 border border-gray-200 dark:border-neutral-800 rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden"
           >
             {/* Image */}
             {project.image_url && (
-              <img
+              <Image
+                width={400}
+                height={400}
                 src={project.image_url}
                 alt={project.project_name}
                 className="w-full h-44 object-cover"

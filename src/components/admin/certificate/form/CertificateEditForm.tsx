@@ -147,7 +147,7 @@ export function CertificateEditFormDialog({ id }: CertificateFormDialogProps) {
           <DialogHeader>
             <DialogTitle>Edit Certificate</DialogTitle>
             <DialogDescription>
-              Update the certificate details below. Click save when you're done.
+              {"Update the certificate details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

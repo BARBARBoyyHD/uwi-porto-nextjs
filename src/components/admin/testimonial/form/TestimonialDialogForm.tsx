@@ -74,8 +74,7 @@ export function TestimonialDialog() {
           <DialogHeader>
             <DialogTitle>Add testimonial</DialogTitle>
             <DialogDescription>
-              Fill out your testimonial details below. Click save when you're
-              done.
+              {"Fill out your testimonial details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 

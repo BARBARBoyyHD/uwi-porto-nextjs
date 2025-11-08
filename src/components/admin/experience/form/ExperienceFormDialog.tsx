@@ -71,8 +71,7 @@ export function ExperienceFormDialog() {
           <DialogHeader>
             <DialogTitle>Add Experience</DialogTitle>
             <DialogDescription>
-              Fill out your experience details below. Click save when you're
-              done.
+             {" Fill out your experience details below. Click save when you're done."}
             </DialogDescription>
           </DialogHeader>
 
