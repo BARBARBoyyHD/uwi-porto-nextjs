@@ -15,89 +15,76 @@ export default function HeroComp() {
   const hero = optimisticHero?.[0] ?? null;
 
   return (
-    <section className="w-full min-h-screen flex flex-col items-center justify-center pt-5 md:pt-6 overflow-x-hidden">
-      {/* === Hero Content === */}
+    <section className="relative w-full min-h-screen flex flex-col-reverse md:flex-row items-center justify-center gap-10 px-6 md:px-16 pt-20 md:pt-24 overflow-hidden">
+      {/* === Text Content === */}
       {hero && (
-        <motion.div className="flex flex-col items-center text-center space-y-6">
-          {/* Name & Description */}
-          <motion.div className="flex flex-col items-center justify-center">
-            <motion.div
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              whileDrag={{ scale: 1.1 }}
-              dragConstraints={{
-                left: -100,
-                right: 100,
-                top: -100,
-                bottom: 100,
-              }}
-              drag={true} // ✅ Enables dragging
-            >
-              <Image
-                src={hero.image_url}
-                alt={hero.full_name}
-                width={200}
-                height={200}
-                draggable={false} // 👈 Prevents browser image-drag ghost
-                className="rounded-[50%] relative z-10 object-cover shadow-2xl shadow-cyan-500/20 pointer-events-none"
-              />
-            </motion.div>
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8 }}
+          className="flex flex-col items-center md:items-start text-center md:text-left space-y-6 max-w-xl z-10"
+        >
+          <h1 className="text-4xl md:text-6xl font-bold tracking-tight text-white leading-tight">
+            Hello, I’m{" "}
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#FFD700] to-amber-400">
+              {hero.full_name || "Your Name Here"}
+            </span>
+          </h1>
 
-            <motion.div
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="flex gap-2 flex-col md:flex-row"
-            >
-              <motion.h1
-                initial={{ y: -50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-white text-4xl md:text-5xl tracking-tight drop-shadow-lg"
-              >
-                Hello, I am{" "}
-              </motion.h1>
+          <p className="text-white/70 text-[15px] ">
+            {hero.summary ||
+              "Frontend Developer passionate about creating beautiful, responsive, and high-performance web experiences using React, Next.js, and Tailwind CSS."}
+          </p>
 
-              <motion.h1
-                initial={{ y: -50, opacity: 0 }}
-                animate={{ y: 0, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.2 }}
-                className="text-[#FFD700] text-4xl md:text-5xl tracking-tight drop-shadow-lg font-bold"
-              >
-                {hero.full_name || "Your Name Here"}
-              </motion.h1>
-            </motion.div>
+          <div className="flex flex-wrap justify-center md:justify-start gap-4 pt-4">
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              href="#projects"
+              className="px-6 py-3 rounded-full bg-[#FFD700] text-slate-900 font-semibold shadow-lg shadow-yellow-500/20 hover:shadow-yellow-500/40 transition-all"
+            >
+              View My Work
+            </motion.a>
 
-            <motion.p
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-white/80 text-lg md:text-xl mt-2 max-w-lg leading-relaxed"
+            <motion.a
+              whileHover={{ scale: 1.05 }}
+              href="#contact"
+              className="px-6 py-3 rounded-full border border-white/20 text-white hover:bg-white/10 font-medium transition-all"
             >
-              {hero.summary ||
-                "Frontend Developer • React • Next.js • Tailwind"}
-            </motion.p>
-            <motion.div
-              initial={{ y: -50, opacity: 0 }}
-              animate={{ y: 0, opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-              className="pt-4 flex flex-wrap justify-center md:justify-start gap-4"
-            >
-              <a
-                href="#projects"
-                className="px-6 py-2 rounded-full bg-white text-slate-950 font-medium hover:opacity-90 transition-all"
-              >
-                View My Work
-              </a>
-              <a
-                href="#contact"
-                className="px-6 py-2 rounded-full border border-white/40 hover:bg-white/10 transition-all font-medium"
-              >
-                Contact Me
-              </a>
-            </motion.div>
-          </motion.div>
+              Contact Me
+            </motion.a>
+          </div>
+        </motion.div>
+      )}
+
+      {/* === Image Section === */}
+      {hero?.image_url && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          whileHover={{ scale: 1.05, rotate: 1 }}
+          className="relative z-10"
+          dragConstraints={{
+            left: -100,
+            right: 100,
+            top: -100,
+            bottom: 100,
+          }}
+          drag={true}
+        >
+          <div className="relative w-64 h-64 md:w-80 md:h-80 rounded-[2rem] overflow-hidden border border-white/10 shadow-2xl shadow-cyan-500/10 backdrop-blur-sm">
+            <Image
+              src={hero.image_url}
+              alt={hero.full_name || "Profile Image"}
+              fill
+              sizes="(max-width: 768px) 100vw, 50vw"
+              className="object-cover pointer-events-none"
+              draggable={true}
+            />
+          </div>
+
+          {/* Soft Glow Behind Image */}
+          <div className="absolute inset-0 blur-3xl bg-cyan-500/10 rounded-full -z-10"></div>
         </motion.div>
       )}
     </section>

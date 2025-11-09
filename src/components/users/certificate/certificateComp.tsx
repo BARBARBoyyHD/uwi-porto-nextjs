@@ -16,14 +16,38 @@ export default function CertificateComp() {
 
   return (
     <section className="min-h-screen w-full text-white py-20 px-6 mt-6">
-      <motion.h1
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.6 }}
-        className="text-4xl md:text-5xl font-semibold mb-14 text-center"
-      >
-        My Certificates
-      </motion.h1>
+      <div className="flex flex-col items-center justify-center text-center mb-12 px-4">
+        <motion.h1
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-4xl md:text-6xl font-bold tracking-tight"
+        >
+          <span className="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-yellow-300 drop-shadow-md">
+            Certificates
+          </span>
+        </motion.h1>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          className="text-base md:text-lg text-gray-400 max-w-2xl mt-4 leading-relaxed"
+        >
+          Lifelong learning is at the heart of my craft — these certificates
+          showcase my continuous journey to refine my skills, explore new
+          technologies, and grow as a developer.
+        </motion.p>
+
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          className="text-sm md:text-base text-gray-500 mt-2"
+        >
+          Here are some of my proudest milestones 👇
+        </motion.p>
+      </div>
 
       <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-10 max-w-6xl mx-auto">
         {optimisticCertificate.map((certificate, index) => (

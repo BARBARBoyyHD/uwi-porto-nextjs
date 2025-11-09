@@ -11,7 +11,7 @@ import {
 import { useIsMobile } from "@/hooks/use-mobile";
 import NavBarMobile from "./NavBarMobile";
 import Image from "next/image";
-
+import { motion } from "framer-motion";
 const navItem = [
   { name: "home", href: "/" },
   { name: "my services", href: "/my-services" },
@@ -76,6 +76,12 @@ export default function Navbar() {
                                hover:text-black hover:bg-white hover:px-3 hover:py-1 hover:rounded-md"
                   >
                     {item.name}
+                    <motion.span
+                      className="absolute -bottom-1 left-0 h-0.5 bg-[#FFD700] rounded-full"
+                      initial={{ width: 0 }}
+                      whileHover={{ width: "100%" }}
+                      transition={{ duration: 0.3 }}
+                    />
                   </Link>
                 </NavigationMenuLink>
               </NavigationMenuItem>

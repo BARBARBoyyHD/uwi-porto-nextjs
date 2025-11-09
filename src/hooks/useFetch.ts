@@ -40,9 +40,6 @@ export function useGetData<T>(
     refetchOnWindowFocus: false,
     refetchOnMount: false,
     refetchOnReconnect: false,
-
-    // 🧠 Cache aktif selama 5 menit
-    staleTime: 5 * 60 * 1000,
   });
 }
 
@@ -150,7 +147,7 @@ export function useUpdateData<T>(
         className:
           "bg-green-500 text-white transition-all duration-300 ease-in-out",
       });
-      queryClient.invalidateQueries({ queryKey: [queryKey] });
+      queryClient.invalidateQueries({ queryKey: [queryKey],exact: true });
     },
     onError: (error) => {
       toast.error("❌ Failed to update data", { description: error.message });
