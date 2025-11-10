@@ -67,7 +67,7 @@ export default function MyServicesList() {
                     className="border border-slate-200"
                     spotlightColor="rgba(255, 215, 0, 1)"
                   >
-                    <div className="flex flex-col justify-between w-70 h-[380px] rounded-xl p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-indigo-500/20 ">
+                    <div className="flex flex-col justify-between w-70 h-full rounded-xl p-6 transition-transform duration-300 hover:-translate-y-2 hover:shadow-indigo-500/20 ">
                       {/* Title */}
                       <div>
                         <div className="leading-relaxed line-clamp-5">
@@ -86,7 +86,7 @@ export default function MyServicesList() {
 
                         {/* Description */}
                         <div
-                          className="text-gray-300 mb-4 leading-relaxed line-clamp-5 text-sm"
+                          className="text-gray-300 mb-4  text-sm"
                           dangerouslySetInnerHTML={{
                             __html: service.description,
                           }}
@@ -96,12 +96,12 @@ export default function MyServicesList() {
                       </div>
 
                       {/* ✅ Order Now Button */}
-                      <Link
-                        href="/contact"
-                        className="mt-auto inline-block text-center bg-[#FFD700] transition-colors text-shadow-slate-300 font-bold py-2 rounded-[10px] shadow-md"
+                      <a
+                        href="https://api.whatsapp.com/send?phone=6285703839428&text=Hi%20i%20want%20to%20order%20a%20website%20"
+                        className="mt-auto inline-block text-center bg-[#FFD700] transition-colors text-shadow-slate-300 font-bold py-2 rounded-[10px] shadow-md top-10"
                       >
                         Order Now
-                      </Link>
+                      </a>
                     </div>
                   </SpotlightCard>
                 ))}

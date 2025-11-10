@@ -1,30 +1,32 @@
 "use client";
 
-import React from "react";
 import { useGetData } from "@/hooks/useFetch";
 import { useOptimisticList } from "@/hooks/useOptimisticList";
 import type { Projects } from "@/types/projects";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import { ProjectsDetailComp } from "./ProjectsDetailComp";
 
 // ✅ React Icons
 import {
-  FaReact,
-  FaNodeJs,
-  FaHtml5,
   FaCss3Alt,
-  FaPython,
+  FaHtml5,
   FaJava,
+  FaNodeJs,
+  FaPython,
+  FaReact,
 } from "react-icons/fa";
 import {
-  SiNextdotjs,
-  SiTailwindcss,
-  SiMongodb,
-  SiPostgresql,
-  SiTypescript,
   SiJavascript,
+  SiMongodb,
+  SiNextdotjs,
+  SiPostgresql,
+  SiReactquery,
+  SiSupabase,
+  SiTailwindcss,
+  SiTypescript,
+  SiVercel,
 } from "react-icons/si";
 
 export default function ProjectsAllComp() {
@@ -48,6 +50,9 @@ export default function ProjectsAllComp() {
     css: <FaCss3Alt className="text-blue-400 text-xl" />,
     python: <FaPython className="text-yellow-300 text-xl" />,
     java: <FaJava className="text-red-500 text-xl" />,
+    supabase: <SiSupabase className="text-green-500 text-xl" />,
+    reactquery: <SiReactquery className="text-purple-600 text-xl" />,
+    vercel: <SiVercel className="text-white text-xl" />,
   };
 
   return (

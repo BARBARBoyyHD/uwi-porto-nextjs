@@ -10,7 +10,7 @@ interface PutHandlerProps<T extends Record<string, unknown>> {
   imageColumn?: string;
   bucket?: string;
   data: T;
-  newImageFile?: File;
+  newImageFile?: File ;
 }
 
 export async function putHandler<T extends Record<string, unknown>>({
@@ -42,40 +42,37 @@ export async function putHandler<T extends Record<string, unknown>>({
       });
     }
 
-    // ✅ Use Record<string, unknown> instead of any
     const updatedPayload: Record<string, unknown> = { ...data };
 
-    // 2️⃣ Handle image upload if bucket + imageColumn + newImageFile exist
-    if (bucket && imageColumn && newImageFile) {
-      try {
-        // 2a. Upload new image
+    // 🧩 Always preserve old image URL if no new file uploaded
+    const oldImageUrl =
+      typeof findData === "object" && findData !== null && imageColumn
+        ? (findData as Record<string, unknown>)[imageColumn]
+        : undefined;
+
+    // 2️⃣ Handle image logic
+    if (bucket && imageColumn) {
+      if (newImageFile) {
+        // ✅ Upload new image
         const publicUrl = await uploadImage({
           file: newImageFile,
           bucket,
         });
 
-        // 2b. Delete old image if exists
-
-        if (typeof findData === "object" && findData !== null) {
-          const record = findData as Record<string, unknown>;
-          const oldImageUrl = record[imageColumn];
-
-          if (typeof oldImageUrl === "string" && oldImageUrl.trim() !== "") {
-            await deleteImage({ filePath: oldImageUrl, bucket });
-            console.log("🗑️ Deleted old image:", oldImageUrl);
-          }
-        } else {
-          console.warn("⚠️ Unexpected data type from Supabase:", findData);
+        // 🗑️ Delete old image
+        if (typeof oldImageUrl === "string" && oldImageUrl.trim() !== "") {
+          await deleteImage({ filePath: oldImageUrl, bucket });
+          console.log("🗑️ Deleted old image:", oldImageUrl);
         }
 
-        // 2c. Set new image URL in update payload
         updatedPayload[imageColumn] = publicUrl;
-      } catch (imgError) {
-        console.warn("⚠️ Image update failed:", imgError);
+      } else {
+        // ✅ No new image uploaded → reuse old URL
+        updatedPayload[imageColumn] = oldImageUrl;
       }
     }
 
-    // 3️⃣ Update record in database
+    // 3️⃣ Update record
     const { data: updatedData, error } = await supabase
       .from(table)
       .update(updatedPayload)

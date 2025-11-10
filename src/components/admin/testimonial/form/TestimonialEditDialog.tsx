@@ -162,6 +162,8 @@ export function TestimonialEditDialog({ id }: TestimonialDialogFormProps) {
                 <Label htmlFor="image">client Image</Label>
                 {data?.image_url && (
                   <Image
+                  width={400}
+                  height={400}
                     src={data.image_url}
                     alt="Current client"
                     className="w-full h-40 object-cover rounded-lg border mb-2"

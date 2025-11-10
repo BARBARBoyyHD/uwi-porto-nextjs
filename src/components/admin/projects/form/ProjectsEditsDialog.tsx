@@ -35,7 +35,10 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
     "projects",
     { enabled: open }
   );
-
+  const [preview, setPreview] = useState<string | null>(
+    data?.image_url || null
+  );
+  console.log(data);
   // ✅ Update project hook
   const { mutate: updateProject } = useUpdateData<FormData>(
     "/api/v1/admin/projects/put",
@@ -67,6 +70,12 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
   }, [data]);
 
   // ✅ Handle TipTap content change
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      setPreview(URL.createObjectURL(file));
+    }
+  };
   const handleRichTextChange = (content: string) => {
     setProject((prev) => ({ ...prev, description: content }));
   };
@@ -185,7 +194,13 @@ export function ProjectsEditDialog({ id }: ProjectsDialogFormProps) {
                     className="w-full h-40 object-cover rounded-lg border mb-2"
                   />
                 )}
-                <Input id="image" name="image" type="file" accept="image/*" />
+                <Input
+                  id="image"
+                  name="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
               </div>
             </div>
 

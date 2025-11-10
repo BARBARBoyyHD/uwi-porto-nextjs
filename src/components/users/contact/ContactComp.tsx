@@ -28,7 +28,7 @@ export default function ContactComp() {
         {/* Profile Card (your info) */}
 
         {/* Contact Links */}
-        <div className="w-full md:w-1/2 flex flex-col items-start gap-6 bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-[#FFD700] shadow-lg">
+        <div className="w-full  flex flex-col items-start gap-6 bg-white/10 backdrop-blur-lg p-8 rounded-2xl border border-[#FFD700] shadow-lg">
           <h2 className="text-2xl font-semibold text-white mb-2">
             Let’s Connect 🚀
           </h2>
@@ -37,7 +37,7 @@ export default function ContactComp() {
             opportunities to be part of your vision.
           </p>
 
-          <div className="flex flex-col gap-3 w-full">
+          <div className="flex flex-col flex-wrap gap-3 w-full">
              <a
               href="muhammadnahrulhayat98@gmail.com"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
@@ -68,7 +68,7 @@ export default function ContactComp() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <FaLinkedin size={20} /> https://www.linkedin.com/in/muhammad-nahrul-hayat/
+              <FaLinkedin size={20} /> muhammad-nahrul-hayat
             </a>
             <a
               href="https://github.com/BARBARBoyyHD"
@@ -76,7 +76,7 @@ export default function ContactComp() {
               rel="noopener noreferrer"
               className="flex items-center gap-3 text-gray-200 hover:text-cyan-300 transition"
             >
-              <FaGithub size={20} /> https://github.com/BARBARBoyyHD
+              <FaGithub size={20} /> BARBARBoyyHD
             </a>
           </div>
         </div>
