@@ -1,7 +1,3 @@
-Here is a **clean, professional, GitHub-ready README** for your project — based on your folder structure, tech stack, and the fact that it's a fully dynamic Portfolio CMS built with Next.js 15.
-
-You can copy-paste this into your `README.md` right now ✅
-If you want badges, images, or a logo added later, just tell me.
 
 ---
 
